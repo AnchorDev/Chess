@@ -20,6 +20,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.control.Button;
 import java.io.FileInputStream;
 import java.io.InputStream;
+
+import Pieces.Pawn;
+import Pieces.Piece;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -30,8 +34,10 @@ public class Main extends Application {
 	//wielkosc szachownicy i potrzebne tablice koordynatow i bierek
 	private static int boardSize = 8;
 	private static int[] coordinates;
-	private Pieces[] piece = new Pieces[32];
-	
+	public int[][] Board = new int[8][8];
+	public enum color{
+	 	white, black;
+	 }
 	//wybor szachownicy
 	private static boolean kuba = true;
 	private static boolean radek = false;
@@ -56,6 +62,12 @@ public class Main extends Application {
 		Pane pane = new Pane(gridGroup, pieceGroup);
 		scene = new Scene(pane, 850, 850);
 
+		Piece.ResetBoard(Board);
+		Pawn pionek = new Pawn(1, 1, 0, color.white, null, null);
+		Board[1][3] = 1;
+		pionek.LegalMoves(Board);
+		pionek.ListLegalMoves();
+		
 		addPieces();
 		drawBoard(kuba);
 		stage.setScene(scene);
@@ -125,10 +137,11 @@ public class Main extends Application {
 				wcolor++;
 			}
 			
-			for(i = 0; i < piece.length; i++)
+			/*for(i = 0; i < piece.length; i++)
 			{
 				setImg(piece[i].getFilename(), piece[i].getX(), piece[i].getY());
 			}
+			*/
 		}
 		
 		
@@ -177,15 +190,12 @@ public class Main extends Application {
 			for(int j = 0; j < boardSize; j++)
 			{
 	               if (j == 0) { // 8th rank
-	                    if (i == 0 || i == 7) {piece[count] = new Pieces(i, j, "black", "rook", "D:\\eclipse prace\\szachy\\src\\Pieces\\bRook");
+	                    //if (i == 0 || i == 7) {piece[count] = new Piece(i, j, "black", "rook", "D:\\eclipse prace\\szachy\\src\\Pieces\\bRook");
 	                    count++;
 	                    }
 	               }
 			}
 
-				
-
-		}
 	}
 	
 	public static void main(String[] args) {

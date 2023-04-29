@@ -55,7 +55,7 @@ public class Main extends Application {
 		pieceGroup = new Group();
 		Pane pane = new Pane(gridGroup, pieceGroup);
 		scene = new Scene(pane, 850, 850);
-		
+		//zmiana
 		addPieces();
 		drawBoard(kuba);
 		stage.setScene(scene);

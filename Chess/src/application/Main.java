@@ -56,6 +56,7 @@ public class Main extends Application {
 		Pane pane = new Pane(gridGroup, pieceGroup);
 		scene = new Scene(pane, 850, 850);
 		
+		//moja zmiana
 		addPieces();
 		drawBoard(kuba);
 		stage.setScene(scene);

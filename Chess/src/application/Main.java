@@ -59,7 +59,7 @@ public class Main extends Application {
 		addPieces();
 		drawBoard(kuba);
 		stage.setScene(scene);
-        stage.setTitle("Chess");
+        stage.setTitle("Szachy");
         stage.setResizable(false);
       	stage.show();
       	

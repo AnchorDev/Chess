@@ -26,9 +26,13 @@ import Pieces.Piece;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 
 
 
+@SuppressWarnings("unused")
 public class Main extends Application {
 	
 	//wielkosc szachownicy i potrzebne tablice koordynatow i bierek
@@ -41,25 +45,26 @@ public class Main extends Application {
 	//wybor szachownicy
 	private static boolean kuba = true;
 	private static boolean radek = false;
+	Board board = new Board();
+	
+	public enum Choice{kuba,radek};
 	
 	//dodanie sceny i grup (taka tablica elementow, dodaje sie jako argument do paneli zeby sie wyswietlaly)
 	private static Scene scene;
-	private static Group gridGroup;
-	private static Group pieceGroup;
+
+
 	
-	
+	/*
 	//do obrazkow, sprawdzam czy dziala
 	private static InputStream stream;
     private static Image image;
     private static ImageView imageView;
-	
+	*/
 	
 	@Override
 	public void start(Stage stage) {
 		
-		gridGroup = new Group();
-		pieceGroup = new Group();
-		Pane pane = new Pane(gridGroup, pieceGroup);
+		Pane pane = new Pane(board.gridGroup, board.pieceGroup, board.textGroup);
 		scene = new Scene(pane, 850, 850);
 
 		Piece.ResetBoard(Board);
@@ -69,9 +74,12 @@ public class Main extends Application {
 		pionek.ListLegalMoves();
 		
 		addPieces();
-		drawBoard(kuba);
+		
+		board.setChoice(Choice.kuba);
+		board.drawBoard();
+
 		stage.setScene(scene);
-        stage.setTitle("Szachy");
+        stage.setTitle("Czachy");
         stage.setResizable(false);
       	stage.show();
       	
@@ -79,75 +87,8 @@ public class Main extends Application {
 
 	}
 	
-	//rysuje szachownice, trzeba dodac rysowanie pionkow
-	private void drawBoard(boolean board)
-	{
-		int i,j,wcolor = 0;
-		
-		if(board == kuba)
-		{
-			for(i = 0; i < boardSize; i++)
-			{
-				for(j = 0; j < boardSize; j++)
-				{
-					Rectangle r = new Rectangle();
-					
-					coordinates = setCoordinates(i,j);
-					
-					r.setX(coordinates[0]);
-	                r.setY(coordinates[1]);
-	                r.setWidth(100);
-	                r.setHeight(100);
-	                r.setStroke(Color.BLACK);
-	                
-	                if(wcolor % 2 == 0)	r.setFill(Color.WHITE);
-	                else	r.setFill(Color.BLACK);
-					
-					gridGroup.getChildren().add(r);
-					
-					wcolor++;
-				}
-				wcolor++;
-			}
-		}
-		
-		else if(board == radek)
-		{
-			for(i = 0; i < boardSize; i++)
-			{
-				for(j = 0; j < boardSize; j++)
-				{
-					Rectangle r = new Rectangle();
-					
-					coordinates = setCoordinates(i,j);
-					
-					r.setX(coordinates[0]);
-	                r.setY(coordinates[1]);
-	                r.setWidth(100);
-	                r.setHeight(100);
-	                r.setStroke(Color.BLACK);
-	                
-	                if(wcolor % 2 == 0)	r.setFill(Color.WHITE);
-	                else	r.setFill(Color.rgb(14, 156, 12));
-					
-					gridGroup.getChildren().add(r);
-					
-					wcolor++;
-				}
-				wcolor++;
-			}
-			
-			/*for(i = 0; i < piece.length; i++)
-			{
-				setImg(piece[i].getFilename(), piece[i].getX(), piece[i].getY());
-			}
-			*/
-		}
-		
-		
-		
-	}
-	
+	/*
+>>>>>>> branch 'master' of https://orkan.tu.kielce.pl/gitlab/radek.dev/chess.git
 	//ustawia zdjecia figur
 	private void setImg(String filename, int i, int j)
 	{
@@ -165,29 +106,15 @@ public class Main extends Application {
 		
 		
 	}
-
-	
-	//przypisuje koordynaty poszczegolnych kafelkow szachownicy
-	private int[] setCoordinates(int x, int y)
-	{
-		
-		int[] xy = new int[2];
-		
-		xy[0] = x*100+25;
-		xy[1] = y*100+25;
-		
-		return xy;
-		
-	}
-	
+*/
 	
 	//dodaje bierki do listy elementow
 	private void addPieces()
 	{
 		int count = 0;
-		for(int i = 0; i < boardSize; i++)
+		for(int i = 0; i < board.boardSize; i++)
 		{
-			for(int j = 0; j < boardSize; j++)
+			for(int j = 0; j < board.boardSize; j++)
 			{
 	               if (j == 0) { // 8th rank
 	                    //if (i == 0 || i == 7) {piece[count] = new Piece(i, j, "black", "rook", "D:\\eclipse prace\\szachy\\src\\Pieces\\bRook");

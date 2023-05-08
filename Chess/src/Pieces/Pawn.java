@@ -11,6 +11,7 @@ public class Pawn extends Piece{
 	}
 	public void LegalMoves(int[][] board)
 	{
+		ResetMoves(moves);
 		if (pieceColor == color.white) {
 			if (this.y == 1 && board[this.x][this.y + 2] == -1 && board[this.x][this.y + 1] == -1 ) {
 				moves.add(new Move(this.x, this.y+2));
@@ -39,6 +40,7 @@ public class Pawn extends Piece{
 		if (moves != null) {
 			
 				System.out.println(moves.toString());
+				System.out.println(moves.size());
 		}
 
 	}

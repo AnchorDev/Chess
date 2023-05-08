@@ -20,6 +20,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.control.Button;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+
 
 import Pieces.Pawn;
 import Pieces.Piece;
@@ -32,12 +35,14 @@ import javafx.scene.text.Text;
 
 
 
+
 @SuppressWarnings("unused")
 public class Main extends Application {
 	
 	//wielkosc szachownicy i potrzebne tablice koordynatow i bierek
 	private static int boardSize = 8;
 	private static int[] coordinates;
+	public Group buttonGroup;
 	public int[][] Board = new int[8][8];
 	public enum color{
 	 	white, black;
@@ -64,8 +69,29 @@ public class Main extends Application {
 	@Override
 	public void start(Stage stage) {
 		
-		Pane pane = new Pane(board.gridGroup, board.pieceGroup, board.textGroup);
-		scene = new Scene(pane, 850, 850);
+		buttonGroup = new Group();
+		Pane pane = new Pane(board.gridGroup, board.pieceGroup, board.textGroup, buttonGroup);
+		
+		Resolution r1 = new Resolution();
+		
+		
+		// przycisk od zmiany rozdzielczosci
+		Button p1 = new Button("Resolution");
+		
+		p1.setOnAction(event->{
+			buttonFirst(r1);
+			scene.getWindow().setWidth(r1.getX());
+		    scene.getWindow().setHeight(r1.getY());
+			
+		});
+
+		buttonGroup.getChildren().addAll(p1);
+		buttonGroup.setLayoutX(390);
+		buttonGroup.setLayoutY(0);
+		
+		scene = new Scene(pane, r1.getX(), r1.getY());	
+		
+		
 
 		Piece.ResetBoard(Board);
 		Pawn pionek = new Pawn(1, 1, 0, color.white, null, null);
@@ -76,7 +102,7 @@ public class Main extends Application {
 		addPieces();
 		
 		board.setChoice(Choice.kuba);
-		board.drawBoard();
+		board.drawBoard(100);
 
 		stage.setScene(scene);
         stage.setTitle("Czachy");
@@ -124,6 +150,26 @@ public class Main extends Application {
 			}
 
 	}
+	
+	private void buttonFirst(Resolution r1)
+	{
+		if(r1.getX() == 1200) {
+			r1.setX(1920);
+			r1.setY(1080);
+			board.cleanBoard();
+			board.drawBoard(120);
+			
+		}
+		else
+		{
+			r1.setX(1200);
+			r1.setY(890);
+			board.cleanBoard();
+			board.drawBoard(100);
+		}
+		
+	}
+	
 	
 	public static void main(String[] args) {
 		launch(args);

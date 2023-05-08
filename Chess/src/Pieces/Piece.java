@@ -1,4 +1,6 @@
 package Pieces;
+import java.util.List;
+
 import application.Main.color;
 
 public class Piece {
@@ -44,6 +46,10 @@ public class Piece {
 				board[i][j] = -1;
 			}
 		}
+	}
+	public static void ResetMoves(List<Move> moves)
+	{
+		moves.clear();
 	}
 
 }

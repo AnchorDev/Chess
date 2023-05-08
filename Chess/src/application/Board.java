@@ -1,7 +1,9 @@
 package application;
 
 import application.Main.Choice;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -14,6 +16,7 @@ public class Board{
 	public Group pieceGroup;
 	public Group textGroup;
 	public Choice choice;
+	private Rectangle lastClicked;
 
 
 
@@ -24,9 +27,15 @@ public class Board{
 		pieceGroup = new Group();
 	}
 	
+	public void cleanBoard()
+	{
+		gridGroup.getChildren().clear();
+		textGroup.getChildren().clear();
+	}
+	
 	
 	//rysuje szachownice, trzeba dodac rysowanie pionkow
-	public void drawBoard()
+	public void drawBoard(int size)
 	{
 		int i,j,wcolor = 0;
 		Text a = new Text("11");
@@ -39,12 +48,12 @@ public class Board{
 				{
 					Rectangle r = new Rectangle();
 					
-					coordinates = setCoordinates(i,j);
+					coordinates = setCoordinates(i,j, size);
 					
 					r.setX(coordinates[0]);
 	                r.setY(coordinates[1]);
-	                r.setWidth(100);
-	                r.setHeight(100);
+	                r.setWidth(size);
+	                r.setHeight(size);
 	                r.setStroke(Color.BLACK);
 	                
 	                if(wcolor % 2 == 0)	r.setFill(Color.WHITE);
@@ -55,7 +64,7 @@ public class Board{
 					{
 						String s = Integer.toString(8-j);
 						Text t = new Text(s);
-						coordinates = setCoordinates(i+0.05,j+0.15);
+						coordinates = setCoordinates(i+0.05,j+0.15, size);
 						t.setX(coordinates[0]);
 		                t.setY(coordinates[1]);
 		                if(wcolor % 2 == 0)
@@ -79,7 +88,7 @@ public class Board{
 					{
 						String[] s = {"a", "b", "c", "d", "e", "f", "g", "h"};
 						Text t = new Text(s[i]);
-						coordinates = setCoordinates(i+0.85,j+0.92);
+						coordinates = setCoordinates(i+0.85,j+0.92, size);
 						t.setX(coordinates[0]);
 		                t.setY(coordinates[1]);
 		                if(wcolor % 2 == 0)
@@ -115,12 +124,12 @@ public class Board{
 				{
 					Rectangle r = new Rectangle();
 					
-					coordinates = setCoordinates(i,j);
+					coordinates = setCoordinates(i,j, size);
 					
 					r.setX(coordinates[0]);
 	                r.setY(coordinates[1]);
-	                r.setWidth(100);
-	                r.setHeight(100);
+	                r.setWidth(size);
+	                r.setHeight(size);
 	                r.setStroke(Color.BLACK);
 	                
 	                if(wcolor % 2 == 0)	r.setFill(Color.WHITE);
@@ -138,16 +147,41 @@ public class Board{
 			setImg(piece[i].getFilename(), piece[i].getX(), piece[i].getY());
 		}*/
 		
+	       gridGroup.setOnMouseClicked(new EventHandler<MouseEvent>() {
+	            @Override
+	            public void handle(MouseEvent event) {
+	                for (int i = 0; i < gridGroup.getChildren().size(); i++) {
+	                    Rectangle colorChange = (Rectangle) gridGroup.getChildren().get(i);
+	                    if (colorChange.equals(event.getTarget())) {
+	                        Rectangle clickedRectangle = colorChange;
+	                        
+	                        if (lastClicked != null) {
+	                        	Color previousColor = (Color) lastClicked.getUserData();
+	                        	lastClicked.setFill(previousColor);
+	                        }
+	                        
+	                        Color currentColor = (Color) clickedRectangle.getFill();
+	                        clickedRectangle.setFill(Color.GREEN);
+	                        clickedRectangle.setUserData(currentColor);
+	                        
+	                        lastClicked = clickedRectangle;
+	                        
+	                        break;
+	                    }
+	                }
+	            }
+	        });
 		
 	}
+
 	
 	//przypisuje koordynaty poszczegolnych kafelkow szachownicy
-	private int[] setCoordinates(double x, double y)
+	private int[] setCoordinates(double x, double y, int size)
 	{
 		
 		int[] xy = new int[2];
-		double x1 = x*100+25;
-		double y1 = y*100+25;
+		double x1 = x*size+25;
+		double y1 = y*size+25;
 		xy[0] = (int)x1;
 		xy[1] = (int)y1;
 		

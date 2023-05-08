@@ -8,8 +8,9 @@ public class Rook extends Pawn{
 	public void LegalMoves(int[][] board)
 	{
 		Move[] dir = {new Move(1,0),new Move(0,-1),new Move(-1,0),new Move(0,1)};
-		for (int i = 0; i < dir.length; i++) {
-
+		for (int i = 0; i < 8; i++) 
+		{
+			
 		}
 	}
 

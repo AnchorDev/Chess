@@ -38,15 +38,6 @@ public class Piece {
 	public void setFilename(String filename) {
 		this.filename = filename;
 	}
-	public static void ResetBoard(int[][] board)
-	{
-		for (int i = 0; i < board.length; i++) {
-			for (int j = 0; j < board[i].length; j++) 
-			{
-				board[i][j] = -1;
-			}
-		}
-	}
 	public static void ResetMoves(List<Move> moves)
 	{
 		moves.clear();

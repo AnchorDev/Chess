@@ -22,8 +22,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-
-
+import Pieces.Fen;
 import Pieces.Pawn;
 import Pieces.Piece;
 
@@ -43,7 +42,7 @@ public class Main extends Application {
 	private static int boardSize = 8;
 	private static int[] coordinates;
 	public Group buttonGroup;
-	public int[][] Board = new int[8][8];
+	public Fen fen = new Fen();
 	public enum color{
 	 	white, black;
 	 }
@@ -90,13 +89,12 @@ public class Main extends Application {
 		buttonGroup.setLayoutY(0);
 		
 		scene = new Scene(pane, r1.getX(), r1.getY());	
-		
-		
+				
 
-		Piece.ResetBoard(Board);
+		fen.resetBoard();;
 		Pawn pionek = new Pawn(1, 1, 0, color.white, null, null);
-		Board[1][3] = 1;
-		pionek.LegalMoves(Board);
+		fen.insert(3, 3, pionek);
+		pionek.LegalMoves(fen.chessboard);
 		pionek.ListLegalMoves();
 		
 		addPieces();

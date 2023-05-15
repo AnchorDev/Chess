@@ -20,11 +20,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.control.Button;
 import java.io.FileInputStream;
 import java.io.InputStream;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import Pieces.Fen;
-import Pieces.Pawn;
-import Pieces.Piece;
+import Logic.*;
+import Pieces.*;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -43,9 +43,6 @@ public class Main extends Application {
 	private static int[] coordinates;
 	public Group buttonGroup;
 	public Fen fen = new Fen();
-	public enum color{
-	 	white, black;
-	 }
 	//wybor szachownicy
 	private static boolean kuba = true;
 	private static boolean radek = false;
@@ -91,13 +88,11 @@ public class Main extends Application {
 		scene = new Scene(pane, r1.getX(), r1.getY());	
 				
 
-		fen.resetBoard();;
-		Pawn pionek = new Pawn(1, 1, 0, color.white, null, null);
-		fen.insert(3, 3, pionek);
-		pionek.LegalMoves(fen.chessboard);
-		pionek.ListLegalMoves();
+		fen.resetBoard();
+
+		fen.loadFenPosition("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
 		
-		addPieces();
+		fen.writeChessboard();
 		
 		board.setChoice(Choice.kuba);
 		board.drawBoard(100);
@@ -130,25 +125,7 @@ public class Main extends Application {
 		
 		
 	}
-*/
-	
-	//dodaje bierki do listy elementow
-	private void addPieces()
-	{
-		int count = 0;
-		for(int i = 0; i < board.boardSize; i++)
-		{
-			for(int j = 0; j < board.boardSize; j++)
-			{
-	               if (j == 0) { // 8th rank
-	                    //if (i == 0 || i == 7) {piece[count] = new Piece(i, j, "black", "rook", "D:\\eclipse prace\\szachy\\src\\Pieces\\bRook");
-	                    count++;
-	                    }
-	               }
-			}
-
-	}
-	
+*/	
 	private void buttonFirst(Resolution r1)
 	{
 		if(r1.getX() == 1200) {

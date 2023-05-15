@@ -1,48 +1,37 @@
 package Pieces;
-import java.util.List;
-import application.Main.color;
-import java.util.ArrayList;
+
+import Logic.*;
 
 public class Pawn extends Piece{
-	List<Move> moves;
-	public Pawn(int x, int y, int id, color pieceColor, String name, String filename) {
-		super(x, y, id, pieceColor, name, filename);
-		moves = new ArrayList<Move>();
+	public Pawn(int x, int y, int id, Side pieceColor) {
+		super(x, y, id, pieceColor, PieceType.PAWN);
 	}
-	public void LegalMoves(int[][] board)
+	public void LegalMoves(char[][] board)
 	{
 		ResetMoves(moves);
-		if (pieceColor == color.white) {
-			if (this.y == 1 && board[this.x][this.y + 2] == -1 && board[this.x][this.y + 1] == -1 ) {
+		if (pieceColor == Side.white) {
+			if (this.y == 1 && board[this.x][this.y + 2] == 'x' && board[this.x][this.y + 1] == 'x' ) {
 				moves.add(new Move(this.x, this.y+2));
 			}
 			if (this.y + 1 < 8) 
 			{
-				if (board[this.x][this.y + 1] == -1) {
+				if (board[this.x][this.y + 1] == 'x') {
 					moves.add(new Move(this.x, this.y+1));
 				}
 			}
 		}
-		else if (pieceColor == color.black) {
-			if (this.y == 6 && board[this.x][this.y - 2] == -1 && board[this.x][this.y - 1] == -1 ) {
+		else if (pieceColor == Side.black) {
+			if (this.y == 6 && board[this.x][this.y - 2] == 'x' && board[this.x][this.y - 1] == 'x' ) {
 				moves.add(new Move(this.x, this.y-2));
 			}
 			if (this.y - 1 >= 0) 
 			{
-				if (board[this.x][this.y - 1] == -1) {
+				if (board[this.x][this.y - 1] == 'x') {
 					moves.add(new Move(this.x, this.y-1));
 				}
 			}
 		}
 	}
-	public void ListLegalMoves()
-	{
-		if (moves != null) {
-			
-				System.out.println(moves.toString());
-				System.out.println(moves.size());
-		}
 
-	}
 	
 }

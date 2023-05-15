@@ -1,6 +1,6 @@
-package Pieces;
+package Logic;
 public class Move {
-	int x,y;
+	public int x,y;
 	public Move(int x, int y) {
 		this.x = x;
 		this.y = y;

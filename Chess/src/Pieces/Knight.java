@@ -1,18 +1,18 @@
 package Pieces;
-import application.Main.color;
+import Logic.*;
 
-public class Knight extends Pawn{
-	public Knight(int x, int y, int id, color pieceColor, String name, String filename) {
-		super(x, y, id, pieceColor, name, filename);
+public class Knight extends Piece{
+	public Knight(int x, int y, int id, Side pieceColor) {
+		super(x, y, id, pieceColor, PieceType.KNIGHT);
 	}
-	public void LegalMoves(int[][] board)
+	public void LegalMoves(char[][] board)
 	{
 		ResetMoves(moves);
 		Loop(board, 1);
 		Loop(board, -1);
 
 	}
-	public void Loop(int[][] board, int dirX) 
+	public void Loop(char[][] board, int dirX) 
 	{
 		Move newMove[] = new Move[4];
 		newMove[0]= new Move(this.x + (2*dirX), this.y + 1);
@@ -23,7 +23,7 @@ public class Knight extends Pawn{
 		{
 			if (newMove[i].x >=0 && newMove[i].x < 8 && newMove[i].y >=0 && newMove[i].y < 8) 
 			{
-				if (board[newMove[i].x][newMove[i].y] == -1)
+				if (board[newMove[i].x][newMove[i].y] == 'x')
 				{
 					moves.add(newMove[i]);
 				}

@@ -1,7 +1,4 @@
 package application;
-
-
-
 public class Resolution {
 
 	int x, y;

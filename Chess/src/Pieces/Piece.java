@@ -1,19 +1,22 @@
 package Pieces;
+import java.util.ArrayList;
 import java.util.List;
 
-import application.Main.color;
+import Logic.*;
 
 public class Piece {
 	protected int x,y,id;
 	protected String name, filename;
-	protected color pieceColor;
-	public Piece(int x, int y, int id, color pieceColor, String name, String filename) {
+	protected Side pieceColor;
+	protected PieceType pieceType;
+	protected List<Move> moves;
+	public Piece(int x, int y, int id, Side pieceColor, PieceType pieceType) {
 		this.x = x;
 		this.y = y;
 		this.id = id;
 		this.pieceColor = pieceColor;
-		this.name = name;
-		this.filename = filename;
+		this.pieceType = pieceType;
+		this.moves = new ArrayList<Move>();
 	}	
 	public int getX() {
 		return x;
@@ -38,9 +41,29 @@ public class Piece {
 	public void setFilename(String filename) {
 		this.filename = filename;
 	}
+	public Side getPieceSide() {
+		return pieceColor;
+	}
+	public void setPieceSide(Side pieceColor) {
+		this.pieceColor = pieceColor;
+	}
+	public PieceType getPieceType() {
+		return pieceType;
+	}
+	public void setPieceType(PieceType pieceType) {
+		this.pieceType = pieceType;
+	}
 	public static void ResetMoves(List<Move> moves)
 	{
 		moves.clear();
 	}
+	public void ListLegalMoves()
+	{
+		if (moves.size() > 0) {
+			
+				System.out.println(moves.toString());
+				System.out.println(moves.size());
+		}
 
+	}
 }

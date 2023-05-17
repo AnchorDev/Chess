@@ -86,14 +86,14 @@ public class Fen {
 		Move iterationToBoard(int iteration)
 		{
 			if(iteration < 64)
-				return new Move(iteration % 8, iteration / 8);
+				return new Move(iteration % 8, Math.abs((iteration / 8)-7));
 			else
 				return new Move(0, 0);
 		}
 		
 		public void writeChessboard()
 		{
-			for(int i = 0; i < 8; i++)
+			for(int i = 7; i >= 0; i--)
 			{
 				for(int j = 0; j < 8;j++)
 				{

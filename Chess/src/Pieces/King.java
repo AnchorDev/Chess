@@ -26,6 +26,14 @@ public class King extends Piece{
 				{
 					moves.add(new Move(newMove.x, newMove.y));
 				}
+				else
+				{
+					Side side = Side.whatSide(board[newMove.x][newMove.y]);
+					if (side != this.getPieceSide()) 
+					{
+						moves.add(new Move(newMove.x, newMove.y));
+					}
+				}
 		}
 		
 	}

@@ -14,14 +14,18 @@ public class Game {
 	}
 	public void MakeMove(String command)
 	{
-			
 			Message("");
 			if (command.length() > 3) 
 			{
-				Move from = new Move(command.charAt(0)-97, Character.getNumericValue(command.charAt(1))-1);
-				Move to = new Move(command.charAt(2)-97, Character.getNumericValue(command.charAt(3))-1);
+				Move from = TranslateMove(command.charAt(0)+ "" +command.charAt(1));
+				Move to = TranslateMove(command.charAt(2)+ "" +command.charAt(3));
 				
 				Piece pieceFrom = fen.pieceInPos(from.x, from.y);
+				if (pieceFrom == null) {
+					fen.writeChessboard();
+					Message("There is no piece");
+					return;
+				}
 				pieceFrom.LegalMoves(fen.chessboard);
 				boolean moveFound = false;
 				for (Move move : pieceFrom.moves) 
@@ -53,6 +57,13 @@ public class Game {
 			}
 			
 		
+	}
+	Move TranslateMove(String command)
+	{
+		int x = command.charAt(0)-97;//abc na 123
+		int y = Character.getNumericValue(command.charAt(1))-1;//bo od zera sie liczy
+		
+		return new Move(x, y);
 	}
 	public void Message(String message)
 	{

@@ -20,6 +20,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.control.Button;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.Scanner;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -49,12 +50,8 @@ public class Main extends Application {
 	Board board = new Board();
 	
 	public enum Choice{kuba,radek};
-	
 	//dodanie sceny i grup (taka tablica elementow, dodaje sie jako argument do paneli zeby sie wyswietlaly)
 	private static Scene scene;
-
-
-	
 	/*
 	//do obrazkow, sprawdzam czy dziala
 	private static InputStream stream;
@@ -87,7 +84,7 @@ public class Main extends Application {
 		
 		scene = new Scene(pane, r1.getX(), r1.getY());	
 		
-		game.MakeMove("b1c3");
+		game.fen.writeChessboard();
 		
 		board.setChoice(Choice.kuba);
 		board.drawBoard(100);
@@ -95,7 +92,16 @@ public class Main extends Application {
 		stage.setScene(scene);
         stage.setTitle("Czachy");
         stage.setResizable(false);
-      	stage.show();
+      	//stage.show();
+      	
+      	Scanner scanner = new Scanner(System.in);
+      	for (;;) 
+      	{
+      	// Enter data using BufferReader
+      		 
+             String s = scanner.nextLine();
+             game.MakeMove(s);
+      	}
       	
       	
 

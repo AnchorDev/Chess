@@ -26,7 +26,16 @@ public class Bishop extends Piece{
 					}
 					else
 					{
-						break;
+						Side side = Side.whatSide(board[newMove.x][newMove.y]);
+						if (side != this.getPieceSide()) 
+						{
+							moves.add(newMove);
+							break;
+						}
+						else
+						{
+							break;
+						}
 					}
 				}
 			}

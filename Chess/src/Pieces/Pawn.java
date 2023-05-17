@@ -9,7 +9,7 @@ public class Pawn extends Piece{
 	public void LegalMoves(char[][] board)
 	{
 		ResetMoves(moves);
-		if (pieceColor == Side.black) {
+		if (pieceColor == Side.white) {
 			if (this.y == 1 && board[this.x][this.y + 2] == 'x' && board[this.x][this.y + 1] == 'x' ) {
 				moves.add(new Move(this.x, this.y+2));
 			}
@@ -18,9 +18,21 @@ public class Pawn extends Piece{
 				if (board[this.x][this.y + 1] == 'x') {
 					moves.add(new Move(this.x, this.y+1));
 				}
+				if (this.x - 1 > 0) {
+					if (board[this.x - 1][this.y + 1] != 'x') 
+					{
+						moves.add(new Move(this.x - 1, this.y + 1));
+					}
+				}
+				if (this.x + 1 < 8) {
+					if (board[this.x + 1][this.y + 1] != 'x') 
+					{
+						moves.add(new Move(this.x + 1, this.y + 1));
+					}
+				}
 			}
 		}
-		else if (pieceColor == Side.white) {
+		else if (pieceColor == Side.black) {
 			if (this.y == 6 && board[this.x][this.y - 2] == 'x' && board[this.x][this.y - 1] == 'x' ) {
 				moves.add(new Move(this.x, this.y-2));
 			}
@@ -29,9 +41,19 @@ public class Pawn extends Piece{
 				if (board[this.x][this.y - 1] == 'x') {
 					moves.add(new Move(this.x, this.y-1));
 				}
+				if (this.x - 1 > 0) {
+					if (board[this.x - 1][this.y - 1] != 'x') 
+					{
+						moves.add(new Move(this.x - 1, this.y - 1));
+					}
+				}
+				if (this.x + 1 < 8) {
+					if (board[this.x + 1][this.y - 1] != 'x') 
+					{
+						moves.add(new Move(this.x + 1, this.y - 1));
+					}
+				}
 			}
 		}
 	}
-
-	
 }

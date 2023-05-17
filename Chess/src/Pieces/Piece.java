@@ -56,11 +56,11 @@ public abstract class Piece {
 	}
 	public void ListLegalMoves()
 	{
-		if (moves.size() > 0) {
+		if (moves.size() > 0) 
+		{
 			
 				System.out.println(moves.toString());
 		}
-
 	}
 	public int getId() {
 		return id;

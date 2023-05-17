@@ -28,8 +28,18 @@ public class Rook extends Piece{
 					}
 					else
 					{
-						break;
+						Side side = Side.whatSide(board[newMove][this.y]);
+						if (side != this.getPieceSide()) 
+						{
+							moves.add(new Move(newMove, this.y));
+							break;
+						}
+						else
+						{
+							break;
+						}
 					}
+					
 				}
 				else
 				{
@@ -39,8 +49,18 @@ public class Rook extends Piece{
 					}
 					else
 					{
-						break;
+						Side side = Side.whatSide(board[this.x][newMove]);
+						if (side != this.getPieceSide()) 
+						{
+							moves.add(new Move(this.x, newMove));
+							break;
+						}
+						else
+						{
+							break;
+						}
 					}
+					
 				}
 			}
 		}

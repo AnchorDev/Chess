@@ -1,11 +1,11 @@
 package Pieces;
-import application.Main.color;
+import Logic.*;
 
-public class King extends Pawn{
-	public King(int x, int y, int id, color pieceColor, String name, String filename) {
-		super(x, y, id, pieceColor, name, filename);
+public class King extends Piece{
+	public King(int x, int y, int id, Side pieceColor) {
+		super(x, y, id, pieceColor, PieceType.KING);
 	}
-	public void LegalMoves(int[][] board)
+	public void LegalMoves(char[][] board)
 	{
 		ResetMoves(moves);
 		for (int i = -1; i < 2; i++) 
@@ -17,12 +17,12 @@ public class King extends Pawn{
 		Loop(board, 0, 1);
 
 	}
-	public void Loop(int[][] board, int dirX, int dirY) 
+	public void Loop(char[][] board, int dirX, int dirY) 
 	{
 		Move newMove = new Move(this.x + dirX, this.y + dirY);
 		if (newMove.x >=0 && newMove.x < 8 && newMove.y >=0 && newMove.y < 8) 
 		{
-				if (board[newMove.x][newMove.y] == -1)
+				if (board[newMove.x][newMove.y] == 'x')
 				{
 					moves.add(new Move(newMove.x, newMove.y));
 				}

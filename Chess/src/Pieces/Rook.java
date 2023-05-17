@@ -1,11 +1,11 @@
 package Pieces;
-import application.Main.color;
+import Logic.*;
 
-public class Rook extends Pawn{
-	public Rook(int x, int y, int id, color pieceColor, String name, String filename) {
-		super(x, y, id, pieceColor, name, filename);
+public class Rook extends Piece{
+	public Rook(int x, int y, int id, Side pieceColor) {
+		super(x, y, id, pieceColor, PieceType.ROOK);
 	}
-	public void LegalMoves(int[][] board)
+	public void LegalMoves(char[][] board)
 	{
 		ResetMoves(moves);
 		Loop(board, this.x, 1, true);
@@ -13,7 +13,7 @@ public class Rook extends Pawn{
 		Loop(board, this.y, 1, false);
 		Loop(board, this.y, -1, false);
 	}
-	public void Loop(int[][] board, int pos, int dir, boolean horizontal) 
+	public void Loop(char[][] board, int pos, int dir, boolean horizontal) 
 	{
 		for (int i = 1; i < 9; i++)
 		{
@@ -22,7 +22,7 @@ public class Rook extends Pawn{
 			{
 				if(horizontal)
 				{
-					if (board[newMove][this.y] == -1)
+					if (board[newMove][this.y] == 'x')
 					{
 						moves.add(new Move(newMove, this.y));
 					}
@@ -33,7 +33,7 @@ public class Rook extends Pawn{
 				}
 				else
 				{
-					if (board[this.x][newMove] == -1)
+					if (board[this.x][newMove] == 'x')
 					{
 						moves.add(new Move(this.x, newMove));
 					}

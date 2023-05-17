@@ -1,18 +1,18 @@
 package Pieces;
-import application.Main.color;
+import Logic.*;
 
-public class Queen extends Rook{
-	public Queen(int x, int y, int id, color pieceColor, String name, String filename) {
-		super(x, y, id, pieceColor, name, filename);
+public class Queen extends Piece{
+	public Queen(int x, int y, int id, Side pieceColor) {
+		super(x, y, id, pieceColor, PieceType.QUEEN);
 	}
-	public void LegalMoves(int[][] board)
+	public void LegalMoves(char[][] board)
 	{
 		ResetMoves(moves);
-		Rook rook = new Rook(this.x, this.y, 0, null, null, null);
+		Rook rook = new Rook(this.x, this.y, 0, this.getPieceSide());
 		rook.LegalMoves(board);
 		this.moves.addAll(rook.moves);
 		
-		Bishop bishop = new Bishop(this.x, this.y, 0, null, null, null);
+		Bishop bishop = new Bishop(this.x, this.y, 0, this.getPieceSide());
 		bishop.LegalMoves(board);
 		this.moves.addAll(bishop.moves);
 	}

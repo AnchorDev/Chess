@@ -4,12 +4,16 @@ import java.util.List;
 
 import Logic.*;
 
-public class Piece {
+public abstract class Piece {
+	@Override
+	public String toString() {
+		return "Piece [" + (char)(x+97) + y + ", " + pieceType + ", " + pieceColor + "]";
+	}
 	protected int x,y,id;
-	protected String name, filename;
 	protected Side pieceColor;
 	protected PieceType pieceType;
-	protected List<Move> moves;
+	public List<Move> moves;
+	public abstract void LegalMoves(char[][] board);
 	public Piece(int x, int y, int id, Side pieceColor, PieceType pieceType) {
 		this.x = x;
 		this.y = y;
@@ -34,13 +38,6 @@ public class Piece {
 		this.y = y;
 	}
 
-	public String getFilename() {
-		return filename;
-	}
-
-	public void setFilename(String filename) {
-		this.filename = filename;
-	}
 	public Side getPieceSide() {
 		return pieceColor;
 	}
@@ -62,8 +59,13 @@ public class Piece {
 		if (moves.size() > 0) {
 			
 				System.out.println(moves.toString());
-				System.out.println(moves.size());
 		}
 
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 }

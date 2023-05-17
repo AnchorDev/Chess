@@ -42,7 +42,7 @@ public class Main extends Application {
 	private static int boardSize = 8;
 	private static int[] coordinates;
 	public Group buttonGroup;
-	public Fen fen = new Fen();
+	public Game game = new Game();
 	//wybor szachownicy
 	private static boolean kuba = true;
 	private static boolean radek = false;
@@ -86,13 +86,8 @@ public class Main extends Application {
 		buttonGroup.setLayoutY(0);
 		
 		scene = new Scene(pane, r1.getX(), r1.getY());	
-				
-
-		fen.resetBoard();
-
-		fen.loadFenPosition("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
 		
-		fen.writeChessboard();
+		game.MakeMove("b1c3");
 		
 		board.setChoice(Choice.kuba);
 		board.drawBoard(100);

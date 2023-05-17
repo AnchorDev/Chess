@@ -23,6 +23,10 @@ public class Fen {
 			chessboard [p.getX()][p.getY()] = symbol;
 			
 		}
+		public void remove(Piece p)
+		{
+			chessboard [p.getX()][p.getY()] = 'x';
+		}
 		public void loadFenPosition(String fen)
 		{
 			resetBoard();
@@ -107,5 +111,16 @@ public class Fen {
 					chessboard[i][j] = 'x';
 				}
 			}
+		}
+		public Piece pieceInPos(int x, int y)
+		{
+			for (Piece piece : pieces) 
+			{
+				if (piece.getX() == x && piece.getY() == y) 
+				{
+					return piece;
+				}
+			}
+			return null;
 		}
 }

@@ -41,6 +41,9 @@ public class Main extends Application {
 	//wielkosc szachownicy i potrzebne tablice koordynatow i bierek
 	private static int boardSize = 8;
 	private static int[] coordinates;
+	
+
+    
 	public Group buttonGroup;
 	public Game game = new Game();
 	//wybor szachownicy
@@ -63,7 +66,7 @@ public class Main extends Application {
 	*/
 	
 	@Override
-	public void start(Stage stage) {
+	public void start(Stage stage) throws FileNotFoundException {
 		
 		buttonGroup = new Group();
 		Pane pane = new Pane(board.gridGroup, board.pieceGroup, board.textGroup, buttonGroup);
@@ -89,8 +92,11 @@ public class Main extends Application {
 		
 		game.MakeMove("b1c3");
 		
-		board.setChoice(Choice.kuba);
+		board.setChoice(Choice.radek);
 		board.drawBoard(100);
+
+		board.drawPieces(game.fen.pieces);
+		
 
 		stage.setScene(scene);
         stage.setTitle("Czachy");
@@ -101,26 +107,8 @@ public class Main extends Application {
 
 	}
 	
-	/*
->>>>>>> branch 'master' of https://orkan.tu.kielce.pl/gitlab/radek.dev/chess.git
-	//ustawia zdjecia figur
-	private void setImg(String filename, int i, int j)
-	{
-		try {
-			stream = new FileInputStream(filename);
-			image = new Image(stream);
-			imageView = new ImageView();
-			imageView.setImage(image);
-			coordinates = setCoordinates(i, j);
-            imageView.setX(coordinates[0]);
-            imageView.setY(coordinates[1]); 
-            pieceGroup.getChildren().add(imageView);
-		}catch (FileNotFoundException e) {System.out.println("file not find"); e.printStackTrace();}
-		
-		
-		
-	}
-*/	
+
+		 
 	private void buttonFirst(Resolution r1)
 	{
 		if(r1.getX() == 1200) {

@@ -12,6 +12,7 @@ public abstract class Piece {
 	protected int x,y,id;
 	protected Side pieceColor;
 	protected PieceType pieceType;
+	protected String filename;
 	public List<Move> moves;
 	public abstract void LegalMoves(char[][] board);
 	public Piece(int x, int y, int id, Side pieceColor, PieceType pieceType) {
@@ -21,7 +22,8 @@ public abstract class Piece {
 		this.pieceColor = pieceColor;
 		this.pieceType = pieceType;
 		this.moves = new ArrayList<Move>();
-	}	
+	}
+	
 	public int getX() {
 		return x;
 	}
@@ -36,6 +38,15 @@ public abstract class Piece {
 
 	public void setY(int y) {
 		this.y = y;
+	}
+	
+	public String getFilename()
+	{
+		return filename;
+	}
+	public void setFilename(String filename)
+	{
+		this.filename = filename;
 	}
 
 	public Side getPieceSide() {

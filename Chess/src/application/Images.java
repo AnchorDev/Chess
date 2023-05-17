@@ -34,7 +34,7 @@ public class Images {
 	
 	 public void drawPieces(List<Piece> pieces) throws FileNotFoundException {
 	        for (Piece piece: pieces) {
-	            setImg("C:\\Users\\01jak\\git\\chess\\Chess\\src\\PiecesPic\\"+piece.getPieceSide()+piece.getPieceType()+".png", piece.getX(), piece.getY());
+	            setImg("PiecesPic/"+piece.getPieceSide()+piece.getPieceType()+".png", piece.getX(), piece.getY());
 	        }
 	    }
 

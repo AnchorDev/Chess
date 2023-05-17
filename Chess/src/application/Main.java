@@ -55,18 +55,18 @@ public class Main extends Application {
 	public enum Choice{kuba,radek};
 	//dodanie sceny i grup (taka tablica elementow, dodaje sie jako argument do paneli zeby sie wyswietlaly)
 	private static Scene scene;
-	/*
+	
 	//do obrazkow, sprawdzam czy dziala
 	private static InputStream stream;
     private static Image image;
     private static ImageView imageView;
-	*/
+	
 	
 	@Override
 	public void start(Stage stage) throws FileNotFoundException {
 		
 		buttonGroup = new Group();
-		Pane pane = new Pane(board.gridGroup, board.pieceGroup, board.textGroup, buttonGroup);
+		Pane pane = new Pane(Board.gridGroup, Board.pieceGroup, Board.textGroup, buttonGroup);
 		
 		Resolution r1 = new Resolution();
 		
@@ -92,15 +92,18 @@ public class Main extends Application {
 		board.setChoice(Choice.radek);
 		board.drawBoard(100);
 
+		game.MakeMove("d2d4");
+		
 		board.drawPieces(game.fen.pieces);
+		
 		
 
 		stage.setScene(scene);
         stage.setTitle("Czachy");
         stage.setResizable(false);
-      	//stage.show();
+      	stage.show();
       	
-      	Scanner scanner = new Scanner(System.in);
+      	/*Scanner scanner = new Scanner(System.in);
       	for (;;) 
       	{
       	// Enter data using BufferReader
@@ -108,7 +111,7 @@ public class Main extends Application {
              String s = scanner.nextLine();
              game.MakeMove(s);
       	}
-      	
+      	*/
       	
 
 	}

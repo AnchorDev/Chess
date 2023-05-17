@@ -1,24 +1,40 @@
 package application;
 
+import Pieces.*;
+
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+
 import application.Main.Choice;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import java.util.List;
+
+
 
 public class Board{
 	
-	private static int[] coordinates;
+	public static int[] coordinates;
 	public int boardSize = 8;
-	public Group gridGroup;
-	public Group pieceGroup;
-	public Group textGroup;
+	public static Group gridGroup;
+	public static Group pieceGroup;
+	public static Group textGroup;
 	public Choice choice;
 	private Rectangle lastClicked;
-
-
+	
+	private InputStream stream;
+	private Image image;
+    private ImageView imageView;
+    
+ 
 
 	Board()
 	{
@@ -142,10 +158,6 @@ public class Board{
 				wcolor++;
 			}
 		}
-		/*for(i = 0; i < piece.length; i++)
-		{
-			setImg(piece[i].getFilename(), piece[i].getX(), piece[i].getY());
-		}*/
 		
 	       gridGroup.setOnMouseClicked(new EventHandler<MouseEvent>() {
 	            @Override
@@ -174,9 +186,34 @@ public class Board{
 		
 	}
 
+
+    
+	private void setImg(String filename, double i, double j) throws FileNotFoundException {
+		
+		 try {
+			 stream = new FileInputStream(filename);
+			 image = new Image(stream);
+			 imageView = new ImageView();
+			 imageView.setImage(image);
+			 coordinates = setCoordinates(i, j, 100);
+			 imageView.setX(coordinates[0]);
+			 imageView.setY(coordinates[1]); 
+			 imageView.setFitHeight(100);
+			 imageView.setFitWidth(100);
+			 pieceGroup.getChildren().add(imageView);
+		 } catch (FileNotFoundException e) {System.out.println("cannot find file"); e.printStackTrace();}
+		
+	}
+	
+	 public void drawPieces(List<Piece> pieces) throws FileNotFoundException {
+	        for (Piece piece: pieces) {
+	            setImg("C:\\Users\\01jak\\git\\chess\\Chess\\src\\PiecesPic\\"+piece.getPieceSide()+piece.getPieceType()+".png", piece.getX(), piece.getY());
+	        }
+	    }
+	
 	
 	//przypisuje koordynaty poszczegolnych kafelkow szachownicy
-	private int[] setCoordinates(double x, double y, int size)
+	public static int[] setCoordinates(double x, double y, int size)
 	{
 		
 		int[] xy = new int[2];

@@ -8,6 +8,7 @@ public enum PieceType {
 	QUEEN('q');
 	
 	private final char symbol;
+
 	PieceType(char symbol) {
 		this.symbol = symbol;
 	}
@@ -24,4 +25,6 @@ public enum PieceType {
 		}
 		return null;
 	}
+	
+
 }

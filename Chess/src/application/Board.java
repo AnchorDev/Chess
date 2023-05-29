@@ -1,8 +1,5 @@
 package application;
-
 import Pieces.*;
-
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -17,9 +14,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import java.util.List;
-
-
-
 public class Board{
 	
 	public static int[] coordinates;
@@ -207,7 +201,7 @@ public class Board{
 	
 	 public void drawPieces(List<Piece> pieces) throws FileNotFoundException {
 	        for (Piece piece: pieces) {
-	            setImg("C:\\Users\\01jak\\git\\chess\\Chess\\src\\PiecesPic\\"+piece.getPieceSide()+piece.getPieceType()+".png", piece.getX(), piece.getY());
+	            setImg("Chess\\src\\PiecesPic\\"+piece.getPieceSide()+piece.getPieceType()+".png", piece.getX(), piece.getY());
 	        }
 	    }
 	

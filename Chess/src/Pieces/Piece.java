@@ -79,4 +79,13 @@ public abstract class Piece {
 	public void setId(int id) {
 		this.id = id;
 	}
+	public static Piece findPiece(List<Piece> pieces,Side side, PieceType pieceType)
+	{
+		for (Piece piece : pieces) {
+			if (piece.getPieceSide() == side && piece.getPieceType() == pieceType) {
+				return piece;
+			}
+		}
+		return null;
+	}
 }

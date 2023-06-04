@@ -40,8 +40,6 @@ public class Main extends Application {
 	private static int boardSize = 8;
 	private static int[] coordinates;
 	
-
-    
 	public Group buttonGroup;
 	public Game game = new Game();
 	//wybor szachownicy
@@ -67,7 +65,6 @@ public class Main extends Application {
 		
 		Resolution r1 = new Resolution();
 		
-		
 		// przycisk od zmiany rozdzielczosci
 		Button p1 = new Button("Resolution");
 		
@@ -89,10 +86,9 @@ public class Main extends Application {
 		board.setChoice(Choice.radek);
 		board.drawBoard(100);
 
-		game.MakeMove(new Move(0,1), new Move(0,3));
+		//game.MakeMove(new Move(0,1), new Move(0,3));
 		
 		board.drawPieces(game.fen.pieces);
-		
 		
 
 		stage.setScene(scene);
@@ -104,17 +100,12 @@ public class Main extends Application {
       	for (;;) 
       	{
       	// Enter data using BufferReader
-      		 
-             String s = scanner.nextLine();
-             game.MakeMove(s);
-      	}
-      	*/
-      	
-
+      		String s = scanner.nextLine();
+      		Move from = Game.TranslateMove(s.charAt(0)+ "" +s.charAt(1));
+			Move to = Game.TranslateMove(s.charAt(2)+ "" +s.charAt(3));
+            game.MakeMove(from,to);
+      	}*/
 	}
-	
-
-		 
 	private void buttonFirst(Resolution r1)
 	{
 		if(r1.getX() == 1200) {

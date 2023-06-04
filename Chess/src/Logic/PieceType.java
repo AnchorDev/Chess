@@ -6,9 +6,7 @@ public enum PieceType {
 	BISHOP('b'),
 	KING('k'),
 	QUEEN('q');
-	
 	private final char symbol;
-
 	PieceType(char symbol) {
 		this.symbol = symbol;
 	}

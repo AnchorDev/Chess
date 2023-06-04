@@ -33,9 +33,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
-
-
-
 @SuppressWarnings("unused")
 public class Main extends Application {
 	
@@ -92,7 +89,7 @@ public class Main extends Application {
 		board.setChoice(Choice.kuba);
 		board.drawBoard(100);
 
-		game.MakeMove("d2d4");
+		game.MakeMove(new Move(0,1), new Move(0,3));
 		
 		board.drawPieces(game.fen.pieces);
 		

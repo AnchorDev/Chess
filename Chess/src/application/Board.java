@@ -201,7 +201,7 @@ public class Board{
 	
 	 public void drawPieces(List<Piece> pieces) throws FileNotFoundException {
 	        for (Piece piece: pieces) {
-	            setImg("Chess\\src\\PiecesPic\\"+piece.getPieceSide()+piece.getPieceType()+".png", piece.getX(), piece.getY());
+	            setImg("src\\PiecesPic\\"+piece.getPieceSide()+piece.getPieceType()+".png", piece.getX(), piece.getY());
 	        }
 	    }
 	

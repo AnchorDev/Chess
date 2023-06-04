@@ -54,7 +54,7 @@ public class Main extends Application {
 	
 	public enum Choice{kuba,radek};
 	//dodanie sceny i grup (taka tablica elementow, dodaje sie jako argument do paneli zeby sie wyswietlaly)
-	private static Scene scene;
+	public static Scene scene;
 	
 	//do obrazkow, sprawdzam czy dziala
 	private static InputStream stream;
@@ -89,7 +89,7 @@ public class Main extends Application {
 		
 		game.fen.writeChessboard();
 		
-		board.setChoice(Choice.radek);
+		board.setChoice(Choice.kuba);
 		board.drawBoard(100);
 
 		game.MakeMove("d2d4");
@@ -103,6 +103,9 @@ public class Main extends Application {
         stage.setResizable(false);
       	stage.show();
       	
+      	//MouseClick.mouseClick();
+      	
+      	
       	/*Scanner scanner = new Scanner(System.in);
       	for (;;) 
       	{
@@ -115,6 +118,8 @@ public class Main extends Application {
       	
 
 	}
+	
+	
 	
 
 		 

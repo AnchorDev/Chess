@@ -34,6 +34,8 @@ public class Images {
 	
 	 public void drawPieces(List<Piece> pieces) throws FileNotFoundException {
 	        for (Piece piece: pieces) {
+	        	//double invertedY = 7 - piece.getY();
+	        	//setImg("PiecesPic/"+piece.getPieceSide()+piece.getPieceType()+".png", piece.getX(), invertedY);
 	            setImg("PiecesPic/"+piece.getPieceSide()+piece.getPieceType()+".png", piece.getX(), piece.getY());
 	        }
 	    }

@@ -22,13 +22,14 @@ public class Board{
 	public static Group pieceGroup;
 	public static Group textGroup;
 	public Choice choice;
-	private Rectangle lastClicked;
+	public Rectangle lastClicked;
+	public Boolean nextClick = false;
 	
 	private InputStream stream;
 	private Image image;
     private ImageView imageView;
     
- 
+    public Color previousColor;
 
 	Board()
 	{
@@ -41,19 +42,23 @@ public class Board{
 	{
 		gridGroup.getChildren().clear();
 		textGroup.getChildren().clear();
+		pieceGroup.getChildren().clear();
 	}
 	
 	
 	//rysuje szachownice, trzeba dodac rysowanie pionkow
 	public void drawBoard(int size)
 	{
-		int i,j,wcolor = 0;
+		int i=0,j=0,wcolor = 0;
 		Text a = new Text("11");
+		
 		textGroup.getChildren().add(a);
+		
 		if(choice == Choice.kuba)
 		{
 			for(i = 0; i < boardSize; i++)
 			{
+
 				for(j = 0; j < boardSize; j++)
 				{
 					Rectangle r = new Rectangle();
@@ -65,25 +70,25 @@ public class Board{
 	                r.setWidth(size);
 	                r.setHeight(size);
 	                r.setStroke(Color.BLACK);
-	                
 	                if(wcolor % 2 == 0)	r.setFill(Color.WHITE);
-	                else	r.setFill(Color.BLACK);
+	                else	r.setFill(Color.rgb(14, 156, 12));
 					gridGroup.getChildren().add(r);
 					
 					if(i == 0)
 					{
 						String s = Integer.toString(8-j);
 						Text t = new Text(s);
-						coordinates = setCoordinates(i+0.05,j+0.15, size);
+						coordinates = setCoordinatesLetters(i+0.05,j+0.15, size);
+						
 						t.setX(coordinates[0]);
 		                t.setY(coordinates[1]);
-		                if(wcolor % 2 == 0)
+		                if(wcolor % 2 != 0)
 		                {
 			                t.setFill(Color.BLACK);
 			                t.setStroke(Color.BLACK);
 			                t.setStrokeWidth(0.2);
 		                }
-		                else if(wcolor % 2 != 0)
+		                else if(wcolor % 2 == 0)
 		                {
 		                	t.setFill(Color.WHITE);
 			                t.setStroke(Color.WHITE);
@@ -98,16 +103,16 @@ public class Board{
 					{
 						String[] s = {"a", "b", "c", "d", "e", "f", "g", "h"};
 						Text t = new Text(s[i]);
-						coordinates = setCoordinates(i+0.85,j+0.92, size);
+						coordinates = setCoordinatesLetters(i+0.85,j+0.92, size);
 						t.setX(coordinates[0]);
 		                t.setY(coordinates[1]);
-		                if(wcolor % 2 == 0)
+		                if(wcolor % 2 != 0)
 		                {
 			                t.setFill(Color.BLACK);
 			                t.setStroke(Color.BLACK);
 			                t.setStrokeWidth(0.2);
 		                }
-		                else if(wcolor % 2 != 0)
+		                else if(wcolor % 2 == 0)
 		                {
 		                	t.setFill(Color.WHITE);
 			                t.setStroke(Color.WHITE);
@@ -124,60 +129,45 @@ public class Board{
 
 				wcolor++;
 			}
-		}
+		}	    
 		
-		else if(choice == Choice.radek)
-		{
-			for(i = 0; i < boardSize; i++)
-			{
-				for(j = 0; j < boardSize; j++)
-				{
-					Rectangle r = new Rectangle();
-					
-					coordinates = setCoordinates(i,j, size);
-					
-					r.setX(coordinates[0]);
-	                r.setY(coordinates[1]);
-	                r.setWidth(size);
-	                r.setHeight(size);
-	                r.setStroke(Color.BLACK);
-	                
-	                if(wcolor % 2 == 0)	r.setFill(Color.WHITE);
-	                else	r.setFill(Color.rgb(14, 156, 12));
-	                
-					gridGroup.getChildren().addAll(r);
-					
-					wcolor++;
-				}
-				wcolor++;
-			}
-		}
-		
-	       gridGroup.setOnMouseClicked(new EventHandler<MouseEvent>() {
-	            @Override
-	            public void handle(MouseEvent event) {
-	                for (int i = 0; i < gridGroup.getChildren().size(); i++) {
-	                    Rectangle colorChange = (Rectangle) gridGroup.getChildren().get(i);
-	                    if (colorChange.equals(event.getTarget())) {
-	                        Rectangle clickedRectangle = colorChange;
-	                        
-	                        if (lastClicked != null) {
-	                        	Color previousColor = (Color) lastClicked.getUserData();
-	                        	lastClicked.setFill(previousColor);
-	                        }
-	                        
-	                        Color currentColor = (Color) clickedRectangle.getFill();
-	                        clickedRectangle.setFill(Color.GREEN);
-	                        clickedRectangle.setUserData(currentColor);
-	                        
-	                        lastClicked = clickedRectangle;
-	                        
-	                        break;
-	                    }
-	                }
-	            }
-	        });
-		
+		gridGroup.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		    @Override
+		    public void handle(MouseEvent event) {
+		    	
+		        for (int i = 0; i < gridGroup.getChildren().size(); i++) {
+		            Rectangle colorChange = (Rectangle) gridGroup.getChildren().get(i);
+		            if (colorChange.equals(event.getTarget())) {
+		                Rectangle clickedRectangle = colorChange;
+		                
+		                if (lastClicked == clickedRectangle) {
+		                    // Kliknięto ponownie na to samo pole, przywróć poprzedni kolor
+		                    previousColor = (Color) clickedRectangle.getUserData();
+		                    clickedRectangle.setFill(previousColor);
+		                    lastClicked = null; // Wyczyść ostatnio kliknięte pole
+		                    nextClick = false;
+		                } else {
+		                    // Kliknięcie na inne pole
+		                    if (lastClicked != null) {
+		                        // Przywróć poprzedni kolor dla poprzednio klikniętego pola
+		                        previousColor = (Color) lastClicked.getUserData();
+		                        lastClicked.setFill(previousColor);
+		                        nextClick = true;
+		                    }
+		                    
+		                    Color currentColor = (Color) clickedRectangle.getFill();
+		                    clickedRectangle.setFill(Color.GREEN);
+		                    clickedRectangle.setUserData(currentColor);
+		                    
+		                    lastClicked = clickedRectangle;
+		                }
+		                
+		                break;
+		            }
+		        }
+		    }
+		});
+
 	}
 
 
@@ -201,13 +191,25 @@ public class Board{
 	
 	 public void drawPieces(List<Piece> pieces) throws FileNotFoundException {
 	        for (Piece piece: pieces) {
-	            setImg("src\\PiecesPic\\"+piece.getPieceSide()+piece.getPieceType()+".png", piece.getX(), piece.getY());
+	            setImg("src\\PiecesPic\\"+piece.getPieceSide()+piece.getPieceType()+".png", piece.getX(), Math.abs(piece.getY()-7));
 	        }
 	    }
 	
 	
 	//przypisuje koordynaty poszczegolnych kafelkow szachownicy
 	public static int[] setCoordinates(double x, double y, int size)
+	{
+		
+		int[] xy = new int[2];
+		double x1 = x*size+25;
+		double y1 = y * size + 25;
+		xy[0] = (int)x1;
+		xy[1] = (int)y1;
+		
+		return xy;
+		
+	}
+	public static int[] setCoordinatesLetters(double x, double y, int size)
 	{
 		
 		int[] xy = new int[2];
@@ -219,6 +221,18 @@ public class Board{
 		return xy;
 		
 	}
+	
+	public static int[] findSquare(double x, double y)
+	{
+		int res[] = new int[2];
+		System.out.println(x+" " + y);
+		res[0] = (int) ((x-25)/100);
+		res[1] = (int) ((y-25)/100);
+		
+		return res;
+	}
+	
+	
 	public void setChoice(Choice choice) {
 		this.choice = choice;
 	}

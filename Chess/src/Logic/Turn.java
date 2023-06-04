@@ -10,7 +10,7 @@ public enum Turn
 	public char getSymbol() {
 		return symbol;
 	}
-	public Turn switchTurn(Turn turn)
+	public static Turn switchTurn(Turn turn)
 	{
 		if (turn == Turn.WHITE) 
 			return Turn.BLACK;

@@ -13,6 +13,16 @@ public class Fen {
 			chessboard = new char[8][8];
 			pieces = new ArrayList<Piece>();
 		}
+		public Fen(Fen fen)
+		{
+			chessboard = new char[8][8];
+			for (int i = 0; i < 8; i++) {
+				for (int j = 0; j < 8; j++) {
+					this.chessboard[i][j] = fen.chessboard[i][j];
+				}
+			}
+			pieces = null;
+		}
 		public void insert(Piece p)
 		{
 			char symbol = p.getPieceType().getSymbol();
@@ -20,12 +30,12 @@ public class Fen {
 			{
 				symbol = Character.toUpperCase(symbol);
 			}
-			chessboard [p.getX()][p.getY()] = symbol;
+			chessboard[p.getX()][p.getY()] = symbol;
 			
 		}
 		public void remove(Piece p)
 		{
-			chessboard [p.getX()][p.getY()] = 'x';
+			chessboard[p.getX()][p.getY()] = 'x';
 		}
 		public void loadFenPosition(String fen)
 		{
@@ -95,6 +105,7 @@ public class Fen {
 		{
 			for(int i = 7; i >= 0; i--)
 			{
+				System.out.print((i+1) + "  ");
 				for(int j = 0; j < 8;j++)
 				{
 					System.out.print(chessboard[j][i]);
@@ -102,7 +113,16 @@ public class Fen {
 				}
 				System.out.println();
 			}
+			System.out.println();
+			System.out.print("   ");
+			for(int j = 0; j < 8;j++)
+			{
+				System.out.print((char)(j+97));
+				System.out.print(' ');
+			}
+			System.out.println();
 		}
+		
 		public void resetBoard()
 		{
 			for (int i = 0; i < chessboard.length; i++) {

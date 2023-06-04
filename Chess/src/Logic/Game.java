@@ -37,12 +37,17 @@ public class Game {
 				}
 				if (moveFound) 
 				{
-					fen.remove(pieceFrom);
-					pieceFrom.setX(to.x);
-					pieceFrom.setY(to.y);
-					fen.insert(pieceFrom);
-					fen.writeChessboard();
-					Message(pieceFrom.getPieceSide() + " " + pieceFrom.getPieceType()+ " from "+ from.toString() + " moved to " + to.toString());
+					if (Side.itsTurn(pieceFrom.getPieceSide(), this.turn))  {
+						ExecuteMove(pieceFrom, to);
+						fen.writeChessboard();
+						Message(pieceFrom.getPieceSide() + " " + pieceFrom.getPieceType()+ " from "+ from.toString() + " moved to " + to.toString());
+					}
+					else
+					{
+						Message("Not " + pieceFrom.getPieceSide() + " turn!");
+
+					}
+					
 				}
 				else 
 				{
@@ -57,6 +62,51 @@ public class Game {
 			}
 			
 		
+	}
+	public void MakeMove(Move from, Move to)
+	{
+		Message("");
+		Piece pieceFrom = fen.pieceInPos(from.x, from.y);
+		if (pieceFrom == null) {
+			Message("There is no piece");
+			return;
+		}
+		pieceFrom.LegalMoves(fen.chessboard);
+		boolean moveFound = false;
+		for (Move move : pieceFrom.moves) 
+		{
+			if (move.x == to.x && move.y == to.y) 
+			{
+				moveFound = true;
+			}
+		}
+		if (moveFound) 
+		{
+			if (Side.itsTurn(pieceFrom.getPieceSide(), this.turn)) {
+				ExecuteMove(pieceFrom, to);
+				Message(pieceFrom.getPieceSide() + " " + pieceFrom.getPieceType()+ " from "+ from.toString() + " moved to " + to.toString());
+			}
+			else
+			{
+				Message("Not " + pieceFrom.getPieceSide() + " turn!");
+
+			}
+			
+		}
+		else 
+		{
+			fen.writeChessboard();
+			Message("Move of " + pieceFrom.getPieceSide() + " " + pieceFrom.getPieceType() + " from "+ from.toString() + " is impossible");
+		}
+	}
+	public void ExecuteMove(Piece pieceFrom, Move to)
+	{
+		fen.remove(pieceFrom);
+		pieceFrom.setX(to.x);
+		pieceFrom.setY(to.y);
+		fen.insert(pieceFrom);
+		
+		Turn.switchTurn(this.turn);
 	}
 	Move TranslateMove(String command)
 	{

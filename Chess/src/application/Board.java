@@ -23,12 +23,13 @@ public class Board{
 	public static Group textGroup;
 	public Choice choice;
 	public Rectangle lastClicked;
+	public Boolean nextClick = false;
 	
 	private InputStream stream;
 	private Image image;
     private ImageView imageView;
     
- 
+    public Color previousColor;
 
 	Board()
 	{
@@ -41,6 +42,7 @@ public class Board{
 	{
 		gridGroup.getChildren().clear();
 		textGroup.getChildren().clear();
+		pieceGroup.getChildren().clear();
 	}
 	
 	
@@ -132,6 +134,7 @@ public class Board{
 		gridGroup.setOnMouseClicked(new EventHandler<MouseEvent>() {
 		    @Override
 		    public void handle(MouseEvent event) {
+		    	
 		        for (int i = 0; i < gridGroup.getChildren().size(); i++) {
 		            Rectangle colorChange = (Rectangle) gridGroup.getChildren().get(i);
 		            if (colorChange.equals(event.getTarget())) {
@@ -139,15 +142,17 @@ public class Board{
 		                
 		                if (lastClicked == clickedRectangle) {
 		                    // Kliknięto ponownie na to samo pole, przywróć poprzedni kolor
-		                    Color previousColor = (Color) clickedRectangle.getUserData();
+		                    previousColor = (Color) clickedRectangle.getUserData();
 		                    clickedRectangle.setFill(previousColor);
 		                    lastClicked = null; // Wyczyść ostatnio kliknięte pole
+		                    nextClick = false;
 		                } else {
 		                    // Kliknięcie na inne pole
 		                    if (lastClicked != null) {
 		                        // Przywróć poprzedni kolor dla poprzednio klikniętego pola
-		                        Color previousColor = (Color) lastClicked.getUserData();
+		                        previousColor = (Color) lastClicked.getUserData();
 		                        lastClicked.setFill(previousColor);
+		                        nextClick = true;
 		                    }
 		                    
 		                    Color currentColor = (Color) clickedRectangle.getFill();
@@ -163,7 +168,6 @@ public class Board{
 		    }
 		});
 
-		
 	}
 
 
@@ -187,7 +191,7 @@ public class Board{
 	
 	 public void drawPieces(List<Piece> pieces) throws FileNotFoundException {
 	        for (Piece piece: pieces) {
-	            setImg("src\\PiecesPic\\"+piece.getPieceSide()+piece.getPieceType()+".png", piece.getX(), piece.getY());
+	            setImg("src\\PiecesPic\\"+piece.getPieceSide()+piece.getPieceType()+".png", piece.getX(), Math.abs(piece.getY()-7));
 	        }
 	    }
 	
@@ -198,7 +202,7 @@ public class Board{
 		
 		int[] xy = new int[2];
 		double x1 = x*size+25;
-		double y1 = (7 - y) * size + 25;
+		double y1 = y * size + 25;
 		xy[0] = (int)x1;
 		xy[1] = (int)y1;
 		
@@ -218,12 +222,12 @@ public class Board{
 		
 	}
 	
-	public static int[] findSquare(int x, int y)
+	public static int[] findSquare(double x, double y)
 	{
 		int res[] = new int[2];
-		
-		res[0] = (x-25)/100;
-		res[1] = (y-25)/100;
+		System.out.println(x+" " + y);
+		res[0] = (int) ((x-25)/100);
+		res[1] = (int) ((y-25)/100);
 		
 		return res;
 	}

@@ -7,12 +7,11 @@ import Logic.*;
 public abstract class Piece {
 	@Override
 	public String toString() {
-		return "Piece [" + (char)(x+97) + y + ", " + pieceType + ", " + pieceColor + "]";
+		return "Piece [" + (char)(x+97) + (y+1) + ", " + pieceType + ", " + pieceColor + "]";
 	}
 	protected int x,y,id;
 	protected Side pieceColor;
 	protected PieceType pieceType;
-	protected String filename;
 	public List<Move> moves;
 	public abstract void LegalMoves(char[][] board);
 	public Piece(int x, int y, int id, Side pieceColor, PieceType pieceType) {
@@ -39,16 +38,6 @@ public abstract class Piece {
 	public void setY(int y) {
 		this.y = y;
 	}
-	
-	public String getFilename()
-	{
-		return filename;
-	}
-	public void setFilename(String filename)
-	{
-		this.filename = filename;
-	}
-
 	public Side getPieceSide() {
 		return pieceColor;
 	}
@@ -79,11 +68,22 @@ public abstract class Piece {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public static Piece findPiece(List<Piece> pieces,Side side, PieceType pieceType)
+	public static Piece findPiece(char c, List<Piece> pieces)
 	{
-		for (Piece piece : pieces) {
-			if (piece.getPieceSide() == side && piece.getPieceType() == pieceType) {
-				return piece;
+		PieceType pieceType; Side pieceSide;
+		if (Character.isUpperCase(c)) {
+			pieceSide = Side.white;
+		}
+		else
+		{
+			pieceSide = Side.black;
+		}
+		pieceType = PieceType.isPiece(c);
+		if (pieceType == PieceType.KING) {
+			for (Piece piece : pieces) {
+				if (piece.getPieceSide() == pieceSide && piece.getPieceType() == PieceType.KING) {
+					return piece;
+				}
 			}
 		}
 		return null;

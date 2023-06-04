@@ -41,8 +41,6 @@ public class Main extends Application {
 	private static int boardSize = 8;
 	private static int[] coordinates;
 	
-
-    
 	public Group buttonGroup;
 	public Game game = new Game();
 	//wybor szachownicy
@@ -70,7 +68,6 @@ public class Main extends Application {
 		
 		Resolution r1 = new Resolution();
 		
-		
 		// przycisk od zmiany rozdzielczosci
 		Button p1 = new Button("Resolution");
 		
@@ -92,12 +89,19 @@ public class Main extends Application {
 		board.setChoice(Choice.kuba);
 		board.drawBoard(100);
 
+<<<<<<< Chess/src/application/Main.java
 		Board.pieceGroup.setMouseTransparent(false);
+=======
+		//game.MakeMove(new Move(0,1), new Move(0,3));
+>>>>>>> Chess/src/application/Main.java
 		
 		//game.MakeMove(new Move(0,1), ne	w Move(0,3));
 		
+<<<<<<< Chess/src/application/Main.java
 		board.drawPieces(game.fen.pieces);
 		
+=======
+>>>>>>> Chess/src/application/Main.java
 
 		stage.setScene(scene);
         stage.setTitle("Czachy");
@@ -111,14 +115,13 @@ public class Main extends Application {
       	for (;;) 
       	{
       	// Enter data using BufferReader
-      		 
-             String s = scanner.nextLine();
-             game.MakeMove(s);
-      	}
-      	*/
-      	
-
+      		String s = scanner.nextLine();
+      		Move from = Game.TranslateMove(s.charAt(0)+ "" +s.charAt(1));
+			Move to = Game.TranslateMove(s.charAt(2)+ "" +s.charAt(3));
+            game.MakeMove(from,to);
+      	}*/
 	}
+<<<<<<< Chess/src/application/Main.java
 	
 	
 	public void mouseClick() {
@@ -231,6 +234,8 @@ public class Main extends Application {
 
 
 		 
+=======
+>>>>>>> Chess/src/application/Main.java
 	private void buttonFirst(Resolution r1)
 	{
 		if(r1.getX() == 1200) {

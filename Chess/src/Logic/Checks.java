@@ -21,7 +21,7 @@ public class Checks {
 			{
 				piece.LegalMoves(board);
 				for (Move move : piece.moves) {
-					if (board[move.x][move.y] == Piece.findPiece(pieces, this.side, PieceType.KING).getId()) {
+					if (Piece.findPiece(board[move.x][move.y], pieces) != null) {
 						checking = true;
 					}
 				}

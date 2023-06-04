@@ -17,4 +17,11 @@ public enum Turn
 		else
 			return Turn.WHITE;
 	}
+	public static int TurnToId(Turn turn)
+	{
+		if (turn == Turn.WHITE)
+			return 0;
+		else
+			return 1;
+	}
 }

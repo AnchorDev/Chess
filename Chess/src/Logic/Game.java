@@ -1,68 +1,24 @@
 package Logic;
 
+import java.util.List;
+
 import Pieces.Piece;
 
 public class Game {
 	public Turn turn;
 	public Fen fen;
+	public Checks[] checks;
 	public Game()
 	{
 		turn = Turn.WHITE;
 		fen = new Fen();
 		fen.resetBoard();
 		fen.loadFenPosition("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
+		checks = new Checks[2];
+		checks[0] = new Checks(Side.white);
+		checks[1] = new Checks(Side.black);
 	}
-	public void MakeMove(String command)
-	{
-			Message("");
-			if (command.length() > 3) 
-			{
-				Move from = TranslateMove(command.charAt(0)+ "" +command.charAt(1));
-				Move to = TranslateMove(command.charAt(2)+ "" +command.charAt(3));
-				
-				Piece pieceFrom = fen.pieceInPos(from.x, from.y);
-				if (pieceFrom == null) {
-					fen.writeChessboard();
-					Message("There is no piece");
-					return;
-				}
-				pieceFrom.LegalMoves(fen.chessboard);
-				boolean moveFound = false;
-				for (Move move : pieceFrom.moves) 
-				{
-					if (move.x == to.x && move.y == to.y) 
-					{
-						moveFound = true;
-					}
-				}
-				if (moveFound) 
-				{
-					if (Side.itsTurn(pieceFrom.getPieceSide(), this.turn))  {
-						ExecuteMove(pieceFrom, to);
-						fen.writeChessboard();
-						Message(pieceFrom.getPieceSide() + " " + pieceFrom.getPieceType()+ " from "+ from.toString() + " moved to " + to.toString());
-					}
-					else
-					{
-						Message("Not " + pieceFrom.getPieceSide() + " turn!");
-
-					}
-					
-				}
-				else 
-				{
-					fen.writeChessboard();
-					Message("Move of " + pieceFrom.getPieceSide() + " " + pieceFrom.getPieceType() + " from "+ from.toString() + " is impossible");
-				}
-			}
-			else
-			{
-				fen.writeChessboard();
-				Message("Wrong command");
-			}
-			
-		
-	}
+	
 	public void MakeMove(Move from, Move to)
 	{
 		Message("");
@@ -82,21 +38,65 @@ public class Game {
 		}
 		if (moveFound) 
 		{
-			if (Side.itsTurn(pieceFrom.getPieceSide(), this.turn)) {
-				ExecuteMove(pieceFrom, to);
-				Message(pieceFrom.getPieceSide() + " " + pieceFrom.getPieceType()+ " from "+ from.toString() + " moved to " + to.toString());
-			}
-			else
+			if(CheckMove(pieceFrom, to))
 			{
-				Message("Not " + pieceFrom.getPieceSide() + " turn!");
-
+				Piece pieceTo = fen.pieceInPos(to.x, to.y);
+				if (Side.itsTurn(pieceFrom.getPieceSide(), this.turn)) {
+					if (pieceTo == null) {
+						Message(pieceFrom.getPieceSide() + " " + pieceFrom.getPieceType()+ " from "+ from.toString() + " moved to " + to.toString());
+					}
+					else
+					{
+						Message(pieceFrom.getPieceSide() + " " + pieceFrom.getPieceType()+ " from "+ from.toString() + " moved to " + to.toString() + " taking " + pieceTo.getPieceType());
+						fen.pieces.remove(pieceTo);
+					}
+					ExecuteMove(pieceFrom, to);
+				}
+				else
+				{
+					Message("Not " + pieceFrom.getPieceSide() + " turn!");
+				}
 			}
-			
+			else 
+			{
+				Message("You are in check!");
+			}
 		}
 		else 
 		{
-			fen.writeChessboard();
 			Message("Move of " + pieceFrom.getPieceSide() + " " + pieceFrom.getPieceType() + " from "+ from.toString() + " is impossible");
+		}
+		fen.writeChessboard();
+		PerformChecks(fen.pieces, fen.chessboard);
+	}
+	public boolean CheckMove(Piece pieceFrom, Move to)
+	{
+
+		int turnId = Turn.TurnToId(turn);
+		Move pos = new Move(pieceFrom.getX(), pieceFrom.getY());
+		Turn oldTurn = turn;
+		//checking next move
+		Fen next = new Fen(fen);
+			
+		next.remove(pieceFrom);
+		pieceFrom.setX(to.x);
+		pieceFrom.setY(to.y);
+		next.insert(pieceFrom);
+			
+		turn = Turn.switchTurn(this.turn);
+		PerformChecks(fen.pieces, next.chessboard);
+		if (checks[turnId].isChecked) {
+			turn = oldTurn;
+			pieceFrom.setX(pos.x);
+			pieceFrom.setY(pos.y);
+			return false;
+		}
+		else
+		{
+			turn = oldTurn;
+			pieceFrom.setX(pos.x);
+			pieceFrom.setY(pos.y);
+			return true;
 		}
 	}
 	public void ExecuteMove(Piece pieceFrom, Move to)
@@ -106,16 +106,22 @@ public class Game {
 		pieceFrom.setY(to.y);
 		fen.insert(pieceFrom);
 		
-		Turn.switchTurn(this.turn);
+		turn = Turn.switchTurn(this.turn);
 	}
-	Move TranslateMove(String command)
+	public void PerformChecks(List<Piece> pieces, char[][] chessboard)
+	{
+		checks[0].IsChecked(pieces, chessboard);
+		
+		checks[1].IsChecked(pieces, chessboard);
+	}
+	public static Move TranslateMove(String command)
 	{
 		int x = command.charAt(0)-97;//abc na 123
 		int y = Character.getNumericValue(command.charAt(1))-1;//bo od zera sie liczy
 		
 		return new Move(x, y);
 	}
-	public void Message(String message)
+	public static void Message(String message)
 	{
 		System.out.println(message);
 	}

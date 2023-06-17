@@ -19,4 +19,12 @@ public enum Side{
 			return true;
 		return false;
 	}
+	public static Side TurnToSide(Turn turn)
+	{
+		if (turn == Turn.BLACK) {
+			return Side.black;
+		}
+		else
+			return Side.white;
+	}
 }

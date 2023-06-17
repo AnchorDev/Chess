@@ -89,19 +89,13 @@ public class Main extends Application {
 		board.setChoice(Choice.kuba);
 		board.drawBoard(100);
 
-<<<<<<< Chess/src/application/Main.java
 		Board.pieceGroup.setMouseTransparent(false);
-=======
 		//game.MakeMove(new Move(0,1), new Move(0,3));
->>>>>>> Chess/src/application/Main.java
 		
 		//game.MakeMove(new Move(0,1), ne	w Move(0,3));
 		
-<<<<<<< Chess/src/application/Main.java
 		board.drawPieces(game.fen.pieces);
 		
-=======
->>>>>>> Chess/src/application/Main.java
 
 		stage.setScene(scene);
         stage.setTitle("Czachy");
@@ -121,7 +115,6 @@ public class Main extends Application {
             game.MakeMove(from,to);
       	}*/
 	}
-<<<<<<< Chess/src/application/Main.java
 	
 	
 	public void mouseClick() {
@@ -154,16 +147,7 @@ public class Main extends Application {
 
 	                tx = tsquare[0];
 	                ty = tsquare[1];
-
-	                System.out.println(firstX);
-	                System.out.println(firstY);
-	                System.out.println();
-	                System.out.println(tx);
-	                System.out.println(ty);
-	                System.out.println();
-	                System.out.println();
 	                
-
 	                game.MakeMove(new Move(firstX, Math.abs(firstY-7)), new Move(tx, Math.abs(fy-7)));
 	                board.cleanBoard();
 	                board.drawBoard(100);
@@ -232,10 +216,6 @@ public class Main extends Application {
 	}
 */
 
-
-		 
-=======
->>>>>>> Chess/src/application/Main.java
 	private void buttonFirst(Resolution r1)
 	{
 		if(r1.getX() == 1200) {

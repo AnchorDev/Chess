@@ -18,7 +18,7 @@ public class Pawn extends Piece{
 				if (board[this.x][this.y + 1] == 'x') {
 					moves.add(new Move(this.x, this.y+1));
 				}
-				if (this.x - 1 > 0) {
+				if (this.x - 1 >= 0) {
 					if (board[this.x - 1][this.y + 1] != 'x') 
 					{
 						moves.add(new Move(this.x - 1, this.y + 1));
@@ -41,7 +41,7 @@ public class Pawn extends Piece{
 				if (board[this.x][this.y - 1] == 'x') {
 					moves.add(new Move(this.x, this.y-1));
 				}
-				if (this.x - 1 > 0) {
+				if (this.x - 1 >= 0) {
 					if (board[this.x - 1][this.y - 1] != 'x') 
 					{
 						moves.add(new Move(this.x - 1, this.y - 1));

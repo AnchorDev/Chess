@@ -2,8 +2,10 @@ package Logic;
 
 import java.util.List;
 
+
 import Pieces.Piece;
 import application.Board;
+
 
 public class Game {
 	public Turn turn;

@@ -42,7 +42,8 @@ public class Main extends Application {
 	private static int[] coordinates;
 	
 	public Group buttonGroup;
-	public Game game = new Game();
+	public Group backgroundGroup;
+	static public Game game = new Game();
 	//wybor szachownicy
 	private static boolean kuba = true;
 	private static boolean radek = false;
@@ -57,6 +58,7 @@ public class Main extends Application {
 	private static InputStream stream;
     private static Image image;
     private static ImageView imageView;
+    private static ImageView backView;
     
 
 	
@@ -64,12 +66,12 @@ public class Main extends Application {
 	public void start(Stage stage) throws FileNotFoundException {
 		
 		buttonGroup = new Group();
-		Pane pane = new Pane(Board.gridGroup, Board.pieceGroup, Board.textGroup, buttonGroup);
+		backgroundGroup = new Group();
+		Pane pane = new Pane(backgroundGroup, Board.gridGroup, Board.pieceGroup, Board.textGroup, buttonGroup, Board.turnGroup, Board.moveGroup, Board.comGroup);
 		
 		Resolution r1 = new Resolution();
-		
 		// przycisk od zmiany rozdzielczosci
-		Button p1 = new Button("Resolution");
+		/*Button p1 = new Button("Resolution");
 		
 		p1.setOnAction(event->{
 			buttonFirst(r1);
@@ -81,6 +83,17 @@ public class Main extends Application {
 		buttonGroup.getChildren().addAll(p1);
 		buttonGroup.setLayoutX(390);
 		buttonGroup.setLayoutY(0);
+		*/
+		//background
+		
+		stream = new FileInputStream("src\\PiecesPic\\background.png");
+		image = new Image(stream);
+		backView = new ImageView();
+		backView.setImage(image);
+		backView.setX(0);
+		backView.setY(0); 
+		backgroundGroup.getChildren().add(backView);
+		
 		
 		scene = new Scene(pane, r1.getX(), r1.getY());	
 		
@@ -89,7 +102,7 @@ public class Main extends Application {
 		board.setChoice(Choice.kuba);
 		board.drawBoard(100);
 
-<<<<<<< Chess/src/application/Main.java
+
 		Board.pieceGroup.setMouseTransparent(false);
 		//game.MakeMove(new Move(0,1), new Move(0,3));
 		
@@ -97,7 +110,7 @@ public class Main extends Application {
 		
 		board.drawPieces(game.fen.pieces);
 		
-=======
+
 
 		Board.pieceGroup.setMouseTransparent(false);
 
@@ -110,7 +123,7 @@ public class Main extends Application {
 		board.drawPieces(game.fen.pieces);
 		
 
->>>>>>> Chess/src/application/Main.java
+
 
 		stage.setScene(scene);
         stage.setTitle("Czachy");
@@ -130,10 +143,6 @@ public class Main extends Application {
             game.MakeMove(from,to);
       	}*/
 	}
-<<<<<<< Chess/src/application/Main.java
-	
-=======
->>>>>>> Chess/src/application/Main.java
 	
 	public void mouseClick() {
 	    Main.scene.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -171,15 +180,10 @@ public class Main extends Application {
 
 	                tx = tsquare[0];
 	                ty = tsquare[1];
-<<<<<<< Chess/src/application/Main.java
-	                
-	                game.MakeMove(new Move(firstX, Math.abs(firstY-7)), new Move(tx, Math.abs(fy-7)));
-=======
 
-	                game.MakeMove(new Move(firstX, Math.abs(firstY - 7)), new Move(tx, Math.abs(fy - 7)));
->>>>>>> Chess/src/application/Main.java
 	                board.cleanBoard();
 	                board.drawBoard(100);
+	                game.MakeMove(new Move(firstX, Math.abs(firstY - 7)), new Move(tx, Math.abs(fy - 7)));
 	                try {
 	                    board.drawPieces(game.fen.pieces);
 	                } catch (FileNotFoundException e) {

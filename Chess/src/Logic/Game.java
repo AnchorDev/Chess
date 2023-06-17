@@ -3,6 +3,7 @@ package Logic;
 import java.util.List;
 
 import Pieces.Piece;
+import application.Board;
 
 public class Game {
 	public Turn turn;
@@ -121,10 +122,12 @@ public class Game {
 				if (Side.itsTurn(pieceFrom.getPieceSide(), this.turn)) {
 					if (pieceTo == null) {
 						Message(pieceFrom.getPieceSide() + " " + pieceFrom.getPieceType()+ " from "+ from.toString() + " moved to " + to.toString());
+						Board.writeMove(from.toString() + to.toString());
 					}
 					else
 					{
 						Message(pieceFrom.getPieceSide() + " " + pieceFrom.getPieceType()+ " from "+ from.toString() + " moved to " + to.toString() + " taking " + pieceTo.getPieceType());
+						Board.writeMove(from.toString() + "x" + to.toString());
 						fen.pieces.remove(pieceTo);
 					}
 					ExecuteMove(pieceFrom, to);
@@ -141,7 +144,7 @@ public class Game {
 		}
 		else 
 		{
-			Message("Move of " + pieceFrom.getPieceSide() + " " + pieceFrom.getPieceType() + " from "+ from.toString() + " is impossible");
+			Message("Move " + from.toString() + " to " + to.toString() + " is impossible");
 		}
 		fen.writeChessboard();
 	}
@@ -244,6 +247,17 @@ public class Game {
 	}
 	public static void Message(String message)
 	{
-		System.out.println(message);
+
+		Board.writeCom(message);
+	}
+	
+	public Turn getTurn() {
+		return turn;
+	}
+	
+	private char pieceChar(int x)
+	{
+		char output = (char)x;
+		return output;
 	}
 }

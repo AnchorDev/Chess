@@ -1,17 +1,22 @@
 package Logic;
 public enum PieceType {
-	PAWN('p'),
-	ROOK('r'),
-	KNIGHT('n'),
-	BISHOP('b'),
-	KING('k'),
-	QUEEN('q');
+	PAWN('p', 9817),
+	ROOK('r', 9814),
+	KNIGHT('n', 9816),
+	BISHOP('b', 9815),
+	KING('k', 9812),
+	QUEEN('q', 9813);
 	private final char symbol;
-	PieceType(char symbol) {
+	private final int id;
+	PieceType(char symbol, int id) {
 		this.symbol = symbol;
+		this.id = id;
 	}
 	public char getSymbol() {
 		return symbol;
+	}
+	public int getId() {
+		return id;
 	}
 	public static PieceType isPiece(char symbol)
 	{

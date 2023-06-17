@@ -9,7 +9,7 @@ public class Move {
 	}
 	@Override
 	public String toString() {
-		return "["+ letter +  (y+1) + "] ";
+		return ""+letter + (y+1);
 	}
 	void Letter()
 	{
@@ -19,4 +19,10 @@ public class Move {
         return (o instanceof Move) && (this.x == ((Move) o).x) && (this.y == ((Move) o).y);
     }
 	
+	public int getX() {
+		return x;
+	}
+	public int getY() {
+		return y;
+	}
 }

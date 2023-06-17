@@ -1,4 +1,7 @@
 package Logic;
+
+import Pieces.Piece;
+
 public enum PieceType {
 	PAWN('p', 9817),
 	ROOK('r', 9814),
@@ -28,6 +31,12 @@ public enum PieceType {
 		}
 		return null;
 	}
-	
+	public static int PieceChar(Piece piece)
+	{
+		if (piece.getPieceSide() == Side.white) {
+			return piece.getPieceType().id + 6;
+		}
+		return piece.getPieceType().id;
+	}
 
 }

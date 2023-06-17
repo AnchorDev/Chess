@@ -91,7 +91,7 @@ public class Main extends Application {
 		backView = new ImageView();
 		backView.setImage(image);
 		backView.setX(0);
-		backView.setY(0); 
+		backView.setY(0);
 		backgroundGroup.getChildren().add(backView);
 		
 		
@@ -144,7 +144,7 @@ public class Main extends Application {
 	                    // Kliknięto na figurę
 	                    firstX = fx;
 	                    firstY = fy;
-
+	                    //System.out.println(clickedPiece.getPieceSide());
 	                    clicked = true;
 	                    return;
 	                }

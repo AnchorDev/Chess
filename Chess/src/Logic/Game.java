@@ -13,7 +13,7 @@ public class Game {
 		turn = Turn.WHITE;
 		fen = new Fen();
 		fen.resetBoard();
-		fen.loadFenPosition("r3k2r/8/8/8/8/8/8/R3K2R");
+		fen.loadFenPosition("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
 	}
 	boolean Castle(Move from, Move to, Side side)
 	{
@@ -196,7 +196,11 @@ public class Game {
 			pieceFrom.castleable = false;
 		turn = Turn.switchTurn(this.turn);
 		if(!HasMoves(fen.pieces, fen.chessboard, Side.TurnToSide(turn)))
+		{
+			Board.comGroup.getChildren().clear();
 			Message("CHECK MATE!! " + Side.TurnToSide(turn) + " HAS NO MOVES!");
+		}
+			
 		
 	}
 	public static Move TranslateMove(String command)

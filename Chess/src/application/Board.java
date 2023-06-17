@@ -304,7 +304,7 @@ public class Board{
 		Text comment = new Text();
         comment.setText(com);
         comment.setX(920);
-        comment.setY(820);
+        comment.setY(790);
         comment.setFill(Color.WHITE);
         comment.setStroke(Color.BLACK);
         comment.setStrokeWidth(0.1);

@@ -180,10 +180,12 @@ public class Main extends Application {
 
 	                tx = tsquare[0];
 	                ty = tsquare[1];
-
+	                
+	                
 	                board.cleanBoard();
-	                board.drawBoard(100);
 	                game.MakeMove(new Move(firstX, Math.abs(firstY - 7)), new Move(tx, Math.abs(fy - 7)));
+	                board.drawBoard(100);
+	                
 	                try {
 	                    board.drawPieces(game.fen.pieces);
 	                } catch (FileNotFoundException e) {

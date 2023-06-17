@@ -1,5 +1,6 @@
 package application;
 import Pieces.*;
+import Logic.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -12,6 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import java.util.List;
 public class Board{
@@ -21,6 +23,9 @@ public class Board{
 	public static Group gridGroup;
 	public static Group pieceGroup;
 	public static Group textGroup;
+	public static Group turnGroup;
+	public static Group moveGroup;
+	public static Group comGroup;
 	public Choice choice;
 	public Rectangle lastClicked;
 	public Boolean nextClick = false;
@@ -30,12 +35,20 @@ public class Board{
     private ImageView imageView;
     
     public Color previousColor;
+    
+    private static int moveCount = 1;
+    private static int coXW = 900;
+    private static int coXB = 1050;
+    private static int coY = 30;
 
 	Board()
 	{
+		turnGroup = new Group();
 		textGroup = new Group();
 		gridGroup = new Group();
 		pieceGroup = new Group();
+		moveGroup = new Group();
+		comGroup = new Group();
 	}
 	
 	public void cleanBoard()
@@ -43,6 +56,8 @@ public class Board{
 		gridGroup.getChildren().clear();
 		textGroup.getChildren().clear();
 		pieceGroup.getChildren().clear();
+		turnGroup.getChildren().clear();
+		comGroup.getChildren().clear();
 	}
 	
 	
@@ -53,11 +68,37 @@ public class Board{
 		Text a = new Text("11");
 		
 		textGroup.getChildren().add(a);
-		
+			
 		if(choice == Choice.kuba)
 		{
 			for(i = 0; i < boardSize; i++)
 			{
+				if(i == 0)
+				{
+					Text whichSide = new Text((Main.game.getTurn() == Turn.WHITE) ? "White Turn" : "Black Turn");
+					if(Main.game.getTurn() == Turn.WHITE)
+					{
+						whichSide.setX(748);
+						whichSide.setY(18);
+						whichSide.setFill(Color.WHITE);
+		                whichSide.setStroke(Color.BLACK);
+		                whichSide.setStrokeWidth(0.1);
+		                whichSide.setScaleX(1.5);
+		                whichSide.setScaleY(1.5);
+		                turnGroup.getChildren().add(whichSide);
+					}
+					else {
+						whichSide.setX(753);
+						whichSide.setY(18);
+						whichSide.setFill(Color.WHITE);
+		                whichSide.setStroke(Color.BLACK);
+		                whichSide.setStrokeWidth(0.1);
+		                whichSide.setScaleX(1.5);
+		                whichSide.setScaleY(1.5);
+		                turnGroup.getChildren().add(whichSide);
+					}
+
+				}
 
 				for(j = 0; j < boardSize; j++)
 				{
@@ -173,8 +214,9 @@ public class Board{
 	}
 
 
+
     
-	private void setImg(String filename, double i, double j) throws FileNotFoundException {
+	public void setImg(String filename, double i, double j) throws FileNotFoundException {
 		
 		 try {
 			 stream = new FileInputStream(filename);
@@ -229,6 +271,48 @@ public class Board{
 	        }
 	    }
 	    return null;
+	}
+	
+	public static void writeMove(String move)
+	{
+		Text moveP = new Text();
+		
+        if(Main.game.getTurn() == Turn.BLACK)
+        {
+        	moveP.setText(move);
+            moveCount++;
+            moveP.setX(coXB);
+        }
+        else
+        {
+        	coY += 15;
+        	moveP.setText(moveCount + ". " + move);
+        	moveP.setX(coXW);
+        }
+        moveP.setY(coY);
+		moveP.setFill(Color.WHITE);
+		moveP.setStroke(Color.BLACK);
+		moveP.setStrokeWidth(0.1);
+		moveP.setScaleX(1.2);
+		moveP.setScaleY(1.2);
+		moveP.setFont(Font.font("Lucida Sans Unicode"));
+        moveGroup.getChildren().add(moveP);
+	}
+	
+	public static void writeCom(String com)
+	{
+		Text comment = new Text();
+        comment.setText(com);
+        comment.setX(920);
+        comment.setY(820);
+        comment.setFill(Color.WHITE);
+        comment.setStroke(Color.BLACK);
+        comment.setStrokeWidth(0.1);
+        comment.setScaleX(1.5);
+        comment.setScaleY(1.5);
+        comment.setWrappingWidth(200);
+        comment.setFont(Font.font("Lucida Sans Unicode"));
+        comGroup.getChildren().add(comment);
 	}
 	
 	

@@ -9,7 +9,7 @@ public class Fen {
 		public char[][] chessboard;
 		public List<Piece> pieces;
 		public Fen()
-		{
+		{	
 			chessboard = new char[8][8];
 			pieces = new ArrayList<Piece>();
 		}

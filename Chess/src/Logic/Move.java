@@ -9,11 +9,17 @@ public class Move {
 	}
 	@Override
 	public String toString() {
-		return "["+ letter +  (y+1) + "] ";
+		return ""+letter + (y+1);
 	}
 	void Letter()
 	{
 		this.letter = (char) (x + 97);
 	}
 	
+	public int getX() {
+		return x;
+	}
+	public int getY() {
+		return y;
+	}
 }

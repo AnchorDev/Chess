@@ -104,6 +104,15 @@ public class Main extends Application {
 
 
 		Board.pieceGroup.setMouseTransparent(false);
+		//game.MakeMove(new Move(0,1), new Move(0,3));
+		
+		//game.MakeMove(new Move(0,1), ne	w Move(0,3));
+		
+		board.drawPieces(game.fen.pieces);
+		
+
+
+		Board.pieceGroup.setMouseTransparent(false);
 
 		//game.MakeMove(new Move(0,1), new Move(0,3));
 
@@ -113,6 +122,7 @@ public class Main extends Application {
 
 		board.drawPieces(game.fen.pieces);
 		
+
 
 
 		stage.setScene(scene);
@@ -171,7 +181,6 @@ public class Main extends Application {
 	                tx = tsquare[0];
 	                ty = tsquare[1];
 
-	                
 	                board.cleanBoard();
 	                board.drawBoard(100);
 	                game.MakeMove(new Move(firstX, Math.abs(firstY - 7)), new Move(tx, Math.abs(fy - 7)));

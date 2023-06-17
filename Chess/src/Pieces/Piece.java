@@ -13,6 +13,7 @@ public abstract class Piece {
 	protected Side pieceColor;
 	protected PieceType pieceType;
 	public List<Move> moves;
+	public boolean castleable;
 	public abstract void LegalMoves(char[][] board);
 	public Piece(int x, int y, int id, Side pieceColor, PieceType pieceType) {
 		this.x = x;
@@ -21,6 +22,7 @@ public abstract class Piece {
 		this.pieceColor = pieceColor;
 		this.pieceType = pieceType;
 		this.moves = new ArrayList<Move>();
+		this.castleable = false;
 	}
 	
 	public int getX() {
@@ -68,7 +70,7 @@ public abstract class Piece {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public static Piece findPiece(char c, List<Piece> pieces)
+	public static Piece findKing(char c, List<Piece> pieces)
 	{
 		PieceType pieceType; Side pieceSide;
 		if (Character.isUpperCase(c)) {
@@ -86,6 +88,15 @@ public abstract class Piece {
 				}
 			}
 		}
+		return null;
+	}
+	public static Piece findPiece(Move move, List<Piece> pieces)
+	{
+			for (Piece piece : pieces) {
+				if (piece.getX() == move.x && piece.getY() == move.y) {
+					return piece;
+				}
+			}
 		return null;
 	}
 }

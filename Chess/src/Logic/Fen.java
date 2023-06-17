@@ -21,7 +21,7 @@ public class Fen {
 					this.chessboard[i][j] = fen.chessboard[i][j];
 				}
 			}
-			pieces = null;
+			pieces = new ArrayList<Piece>();
 		}
 		public void insert(Piece p)
 		{

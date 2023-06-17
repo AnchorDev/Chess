@@ -15,6 +15,9 @@ public class Move {
 	{
 		this.letter = (char) (x + 97);
 	}
+	@Override public boolean equals(Object o) {
+        return (o instanceof Move) && (this.x == ((Move) o).x) && (this.y == ((Move) o).y);
+    }
 	
 	public int getX() {
 		return x;

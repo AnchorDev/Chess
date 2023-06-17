@@ -3,6 +3,7 @@ package Logic;
 import java.util.List;
 
 import Pieces.Piece;
+import Pieces.Queen;
 import application.Board;
 
 public class Game {
@@ -93,6 +94,41 @@ public class Game {
 			}
 		}
 		return false;
+	}
+	void Promotion()
+	{
+		Piece pieceToRemove = null, pieceToAdd = null;
+		for (Piece piece : fen.pieces) 
+		{
+			if (piece.getPieceType() == PieceType.PAWN) {
+				if (piece.getPieceSide() == Side.white) {
+					if (piece.getY() == 7) {
+						int x = piece.getX();
+						fen.remove(piece);
+						pieceToRemove = piece;
+						Queen queen = new Queen(x, 7, fen.pieces.size(), Side.white);
+						fen.insert(queen);
+						pieceToAdd = queen;
+						
+					}
+				}
+				else if (piece.getPieceSide() == Side.black) {
+					if (piece.getY() == 0) {
+						int x = piece.getX();
+						fen.remove(piece);
+						pieceToRemove = piece;
+						Queen queen = new Queen(x, 0, fen.pieces.size(), Side.black);
+						fen.insert(queen);
+						pieceToAdd = queen;
+						
+					}
+				}
+			}
+		}
+		if(pieceToRemove != null)
+			fen.pieces.remove(pieceToRemove);
+		if(pieceToAdd != null)
+			fen.pieces.add(pieceToAdd);
 	}
 	public void MakeMove(Move from, Move to)
 	{
@@ -194,6 +230,7 @@ public class Game {
 		
 		if(pieceFrom.getPieceType() == PieceType.KING | pieceFrom.getPieceType() == PieceType.ROOK)
 			pieceFrom.castleable = false;
+		Promotion();
 		turn = Turn.switchTurn(this.turn);
 		if(!HasMoves(fen.pieces, fen.chessboard, Side.TurnToSide(turn)))
 		{

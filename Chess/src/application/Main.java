@@ -104,22 +104,11 @@ public class Main extends Application {
 
 
 		Board.pieceGroup.setMouseTransparent(false);
-		//game.MakeMove(new Move(0,1), new Move(0,3));
-		
-		//game.MakeMove(new Move(0,1), ne	w Move(0,3));
-		
 		board.drawPieces(game.fen.pieces);
 		
 
 
 		Board.pieceGroup.setMouseTransparent(false);
-
-		//game.MakeMove(new Move(0,1), new Move(0,3));
-
-		
-		//game.MakeMove(new Move(0,1), ne	w Move(0,3));
-		
-
 		board.drawPieces(game.fen.pieces);
 		
 
@@ -131,17 +120,6 @@ public class Main extends Application {
       	stage.show();
       	
       	mouseClick();
-      	
-      	
-      	/*Scanner scanner = new Scanner(System.in);
-      	for (;;) 
-      	{
-      	// Enter data using BufferReader
-      		String s = scanner.nextLine();
-      		Move from = Game.TranslateMove(s.charAt(0)+ "" +s.charAt(1));
-			Move to = Game.TranslateMove(s.charAt(2)+ "" +s.charAt(3));
-            game.MakeMove(from,to);
-      	}*/
 	}
 	
 	public void mouseClick() {

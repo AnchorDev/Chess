@@ -222,6 +222,15 @@ public class Board{
 		return res;
 	}
 	
+	public static Piece getClickedPiece(List<Piece> pieces,int x, int y) {
+	    for (Piece piece : pieces) {
+	        if (piece.getX() == x && piece.getY() == Math.abs(y - 7)) {
+	            return piece;
+	        }
+	    }
+	    return null;
+	}
+	
 	
 	public void setChoice(Choice choice) {
 		this.choice = choice;

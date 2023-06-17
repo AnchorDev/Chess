@@ -78,20 +78,21 @@ public class Board{
 					{
 						String s = Integer.toString(8-j);
 						Text t = new Text(s);
-						coordinates = setCoordinatesLetters(i+0.05,j+0.15, size);
+						coordinates = setCoordinates(i+0.05,j+0.15, size);
 						
 						t.setX(coordinates[0]);
 		                t.setY(coordinates[1]);
 		                if(wcolor % 2 != 0)
 		                {
-			                t.setFill(Color.BLACK);
-			                t.setStroke(Color.BLACK);
+			                
+			                t.setFill(Color.WHITE);
+			                t.setStroke(Color.WHITE);
 			                t.setStrokeWidth(0.2);
 		                }
 		                else if(wcolor % 2 == 0)
 		                {
-		                	t.setFill(Color.WHITE);
-			                t.setStroke(Color.WHITE);
+		                	t.setFill(Color.BLACK);
+			                t.setStroke(Color.BLACK);
 			                t.setStrokeWidth(0.2);
 		                }
 
@@ -103,19 +104,20 @@ public class Board{
 					{
 						String[] s = {"a", "b", "c", "d", "e", "f", "g", "h"};
 						Text t = new Text(s[i]);
-						coordinates = setCoordinatesLetters(i+0.85,j+0.92, size);
+						coordinates = setCoordinates(i+0.85,j+0.92, size);
 						t.setX(coordinates[0]);
 		                t.setY(coordinates[1]);
 		                if(wcolor % 2 != 0)
 		                {
-			                t.setFill(Color.BLACK);
-			                t.setStroke(Color.BLACK);
+			               
+			                t.setFill(Color.WHITE);
+			                t.setStroke(Color.WHITE);
 			                t.setStrokeWidth(0.2);
 		                }
 		                else if(wcolor % 2 == 0)
 		                {
-		                	t.setFill(Color.WHITE);
-			                t.setStroke(Color.WHITE);
+		                	t.setFill(Color.BLACK);
+				            t.setStroke(Color.BLACK);
 			                t.setStrokeWidth(0.2);
 		                }
 		                t.setScaleX(1.5);
@@ -209,18 +211,6 @@ public class Board{
 		return xy;
 		
 	}
-	public static int[] setCoordinatesLetters(double x, double y, int size)
-	{
-		
-		int[] xy = new int[2];
-		double x1 = x*size+25;
-		double y1 = y*size+25;
-		xy[0] = (int)x1;
-		xy[1] = (int)y1;
-		
-		return xy;
-		
-	}
 	
 	public static int[] findSquare(double x, double y)
 	{
@@ -230,6 +220,15 @@ public class Board{
 		res[1] = (int) ((y-25)/100);
 		
 		return res;
+	}
+	
+	public static Piece getClickedPiece(List<Piece> pieces,int x, int y) {
+	    for (Piece piece : pieces) {
+	        if (piece.getX() == x && piece.getY() == Math.abs(y - 7)) {
+	            return piece;
+	        }
+	    }
+	    return null;
 	}
 	
 	

@@ -89,6 +89,7 @@ public class Main extends Application {
 		board.setChoice(Choice.kuba);
 		board.drawBoard(100);
 
+<<<<<<< Chess/src/application/Main.java
 		Board.pieceGroup.setMouseTransparent(false);
 		//game.MakeMove(new Move(0,1), new Move(0,3));
 		
@@ -96,6 +97,20 @@ public class Main extends Application {
 		
 		board.drawPieces(game.fen.pieces);
 		
+=======
+
+		Board.pieceGroup.setMouseTransparent(false);
+
+		//game.MakeMove(new Move(0,1), new Move(0,3));
+
+		
+		//game.MakeMove(new Move(0,1), ne	w Move(0,3));
+		
+
+		board.drawPieces(game.fen.pieces);
+		
+
+>>>>>>> Chess/src/application/Main.java
 
 		stage.setScene(scene);
         stage.setTitle("Czachy");
@@ -115,7 +130,10 @@ public class Main extends Application {
             game.MakeMove(from,to);
       	}*/
 	}
+<<<<<<< Chess/src/application/Main.java
 	
+=======
+>>>>>>> Chess/src/application/Main.java
 	
 	public void mouseClick() {
 	    Main.scene.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -132,89 +150,47 @@ public class Main extends Application {
 	            fx = fsquare[0];
 	            fy = fsquare[1];
 
-	            // Ruch
-	            if (board.lastClicked != null && !clicked) {
-	                firstX = fx;
-	                firstY = fy;
+	            // Sprawdź, czy kliknięto na figurę
+	            if (!clicked) {
+	                Piece clickedPiece = Board.getClickedPiece(game.fen.pieces,fx, fy);
+	                if (clickedPiece != null) {
+	                    // Kliknięto na figurę
+	                    firstX = fx;
+	                    firstY = fy;
 
-	                clicked = true;
-
+	                    clicked = true;
+	                    return;
+	                }
 	            }
-	            if (board.nextClick && clicked ) {
+
+	            // Ruch
+	            if (clicked) {
 	                int tx = (int) event.getX();
 	                int ty = (int) event.getY();
 	                int[] tsquare = Board.findSquare(tx, ty);
 
 	                tx = tsquare[0];
 	                ty = tsquare[1];
+<<<<<<< Chess/src/application/Main.java
 	                
 	                game.MakeMove(new Move(firstX, Math.abs(firstY-7)), new Move(tx, Math.abs(fy-7)));
+=======
+
+	                game.MakeMove(new Move(firstX, Math.abs(firstY - 7)), new Move(tx, Math.abs(fy - 7)));
+>>>>>>> Chess/src/application/Main.java
 	                board.cleanBoard();
 	                board.drawBoard(100);
 	                try {
 	                    board.drawPieces(game.fen.pieces);
 	                } catch (FileNotFoundException e) {
-	                    // Obsługa wyjątku FileNotFoundException
-	                    e.printStackTrace(); // lub inna obsługa błędu
+	                    e.printStackTrace();
 	                }
-	                board.lastClicked.setFill(board.previousColor);
-	                board.lastClicked = null;
-	                board.nextClick = false;
+
 	                clicked = false;
 	            }
 	        }
-
 	    });
 	}
-
-	/*
-	public void mouseClick() {
-	    Main.scene.setOnMouseReleased(new EventHandler<MouseEvent>() {
-	        private Piece draggedPiece = null;
-	        private double offsetX;
-	        private double offsetY;
-
-	        @Override
-	        public void handle(MouseEvent event) {
-	            double mouseX = event.getSceneX();
-	            double mouseY = event.getSceneY();
-
-	            // Sprawdź, czy kliknięto na figurę
-	            Piece clickedPiece = null;
-	            for (Node node : Board.pieceGroup.getChildren()) {
-	                if (node.getBoundsInParent().contains(mouseX, mouseY)) {
-	                    clickedPiece = (Piece) node.getProperties().get("piece");
-	                    System.out.println("clicked " + clickedPiece);
-	                    break;
-	                }
-	            }
-
-	            if (clickedPiece != null) {
-	                if (draggedPiece == null) {
-	                    // Rozpocznij przeciąganie figury
-	                    draggedPiece = clickedPiece;
-	                    offsetX = mouseX - clickedPiece.getX();
-	                    offsetY = mouseY - clickedPiece.getY();
-	                } else {
-	                    // Zakończ przeciąganie figury
-	                    double newX = mouseX - offsetX;
-	                    double newY = mouseY - offsetY;
-
-	                    int[] fsquare = Board.findSquare(newX, newY);
-	                    int fx = fsquare[0];
-	                    int fy = fsquare[1];
-
-	                    Move from = new Move((int) draggedPiece.getX(), (int) draggedPiece.getY());
-	                    Move to = new Move(fx, fy);
-	                    game.MakeMove(from, to);
-
-	                    draggedPiece = null;
-	                }
-	            }
-	        }
-	    });
-	}
-*/
 
 	private void buttonFirst(Resolution r1)
 	{
@@ -223,7 +199,12 @@ public class Main extends Application {
 			r1.setY(1080);
 			board.cleanBoard();
 			board.drawBoard(120);
-			
+			try {
+                board.drawPieces(game.fen.pieces);
+            } catch (FileNotFoundException e) {
+                // Obsługa wyjątku FileNotFoundException
+                e.printStackTrace(); // lub inna obsługa błędu
+            }
 		}
 		else
 		{
@@ -231,6 +212,12 @@ public class Main extends Application {
 			r1.setY(890);
 			board.cleanBoard();
 			board.drawBoard(100);
+			try {
+                board.drawPieces(game.fen.pieces);
+            } catch (FileNotFoundException e) {
+                // Obsługa wyjątku FileNotFoundException
+                e.printStackTrace(); // lub inna obsługa błędu
+            }
 		}
 		
 	}

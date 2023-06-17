@@ -285,7 +285,7 @@ public class Board{
         }
         else
         {
-        	coY += 15;
+        	coY += 22;
         	moveP.setText(moveCount + ". " + move);
         	moveP.setX(coXW);
         }
@@ -293,8 +293,8 @@ public class Board{
 		moveP.setFill(Color.WHITE);
 		moveP.setStroke(Color.BLACK);
 		moveP.setStrokeWidth(0.1);
-		moveP.setScaleX(1.2);
-		moveP.setScaleY(1.2);
+		moveP.setScaleX(2);
+		moveP.setScaleY(2);
 		moveP.setFont(Font.font("Lucida Sans Unicode"));
         moveGroup.getChildren().add(moveP);
 	}

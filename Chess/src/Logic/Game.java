@@ -56,6 +56,7 @@ public class Game {
 								if(CheckMove(fen.pieceInPos(7,lastRow), new Move(5,lastRow)))
 								{
 									Message("Long castle by " + side);
+									Board.writeMove("O-O-O");
 									ExecuteMove(fen.pieceInPos(4,lastRow), new Move(2,lastRow));
 									turn = Turn.switchTurn(this.turn);
 									ExecuteMove(fen.pieceInPos(0,lastRow), new Move(3,lastRow));
@@ -81,6 +82,7 @@ public class Game {
 								if(CheckMove(fen.pieceInPos(7,lastRow), new Move(5,lastRow)))
 								{
 									Message("Short castle by " + side);
+									Board.writeMove("O-O");
 									ExecuteMove(fen.pieceInPos(4,lastRow), new Move(6,lastRow));
 									turn = Turn.switchTurn(this.turn);
 									ExecuteMove(fen.pieceInPos(7,lastRow), new Move(5,lastRow));
@@ -111,6 +113,8 @@ public class Game {
 						Queen queen = new Queen(x, 7, fen.pieces.size(), Side.white);
 						fen.insert(queen);
 						pieceToAdd = queen;
+						Board.writeMove(new Move(queen.getX(), queen.getY()).letter + "=" + pieceChar(queen));
+
 						
 					}
 				}
@@ -122,6 +126,8 @@ public class Game {
 						Queen queen = new Queen(x, 0, fen.pieces.size(), Side.black);
 						fen.insert(queen);
 						pieceToAdd = queen;
+						Board.writeMove(new Move(queen.getX(), queen.getY()).letter + "=" + pieceChar(queen));
+
 						
 					}
 				}
@@ -160,12 +166,12 @@ public class Game {
 				if (Side.itsTurn(pieceFrom.getPieceSide(), this.turn)) {
 					if (pieceTo == null) {
 						Message(pieceFrom.getPieceSide() + " " + pieceFrom.getPieceType()+ " from "+ from.toString() + " moved to " + to.toString());
-						Board.writeMove(from.toString() + to.toString());
+						Board.writeMove(pieceChar(pieceFrom)+ " " + to.toString());
 					}
 					else
 					{
 						Message(pieceFrom.getPieceSide() + " " + pieceFrom.getPieceType()+ " from "+ from.toString() + " moved to " + to.toString() + " taking " + pieceTo.getPieceType());
-						Board.writeMove(from.toString() + "x" + to.toString());
+						Board.writeMove(pieceChar(pieceFrom)+ " " + from.letter + "x" + to.toString());
 						fen.pieces.remove(pieceTo);
 					}
 					ExecuteMove(pieceFrom, to);
@@ -189,6 +195,8 @@ public class Game {
 	public boolean CheckMove(Piece pieceFrom, Move to)
 	{
 
+		if(pieceFrom == null)
+			return false;
 		Move pos = new Move(pieceFrom.getX(), pieceFrom.getY());
 		Turn oldTurn = turn;
 		//checking next move
@@ -236,7 +244,6 @@ public class Game {
 		turn = Turn.switchTurn(this.turn);
 		if(!HasMoves(fen.pieces, fen.chessboard, Side.TurnToSide(turn)))
 		{
-			Board.comGroup.getChildren().clear();
 			Message("CHECK MATE!! " + Side.TurnToSide(turn) + " HAS NO MOVES!");
 		}
 			
@@ -257,10 +264,10 @@ public class Game {
 			if (piece.getPieceSide() != side) 
 			{
 				piece.LegalMoves(board);
-				
 				for (Move move : piece.moves) {
-					if (Piece.findKing(board[move.x][move.y], pieces) != null) {
-						checking = true;
+					for (Piece isKing : pieces) {
+						if(isKing.getX() == move.x && isKing.getY() == move.y && isKing.getPieceSide() == side && isKing.getPieceType() == PieceType.KING)
+							checking = true;
 					}
 				}
 			}
@@ -290,7 +297,8 @@ public class Game {
 	}
 	public static void Message(String message)
 	{
-
+		message = message.toLowerCase();
+		Board.comGroup.getChildren().clear();
 		Board.writeCom(message);
 	}
 	
@@ -298,9 +306,8 @@ public class Game {
 		return turn;
 	}
 	
-	private char pieceChar(int x)
+	char pieceChar(Piece piece)
 	{
-		char output = (char)x;
-		return output;
+		return (char)PieceType.PieceChar(piece);
 	}
 }

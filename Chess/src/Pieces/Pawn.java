@@ -13,7 +13,7 @@ public class Pawn extends Piece{
 			if (this.y == 1 && board[this.x][this.y + 2] == 'x' && board[this.x][this.y + 1] == 'x' ) {
 				moves.add(new Move(this.x, this.y+2));
 			}
-			if (this.y + 1 < 8) 
+			if (this.y + 1 < 8)
 			{
 				if (board[this.x][this.y + 1] == 'x') {
 					moves.add(new Move(this.x, this.y+1));

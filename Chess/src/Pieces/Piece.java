@@ -3,6 +3,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Logic.*;
+/**
+ * Abstrakcyjna funkcja bazowa wszystkich figur
+ */
 public abstract class Piece {
 	
 	/**

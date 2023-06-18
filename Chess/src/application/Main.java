@@ -35,6 +35,9 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 @SuppressWarnings("unused")
+/**
+ * Funkcja glowna main
+ */
 public class Main extends Application {
 	
 	//wielkosc szachownicy i potrzebne tablice koordynatow i bierek
@@ -48,8 +51,6 @@ public class Main extends Application {
 	private static boolean kuba = true;
 	private static boolean radek = false;
 	Board board = new Board();
-	
-	public enum Choice{kuba,radek};
 	//dodanie sceny i grup (taka tablica elementow, dodaje sie jako argument do paneli zeby sie wyswietlaly)
 	public static Scene scene;
 	

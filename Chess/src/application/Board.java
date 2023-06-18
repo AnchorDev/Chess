@@ -5,7 +5,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
-import application.Main.Choice;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
@@ -16,6 +15,9 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import java.util.List;
+/**
+ * Klasa odpowiedzialna za graficzne przedstawienie tablicy
+ */
 public class Board{
 	public static int[] coordinates;
 	public int boardSize = 8;
@@ -25,7 +27,6 @@ public class Board{
 	public static Group turnGroup;
 	public static Group moveGroup;
 	public static Group comGroup;
-	public Choice choice;
 	public Rectangle lastClicked;
 	public Boolean nextClick = false;
 	

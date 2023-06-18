@@ -1,4 +1,7 @@
 package Logic;
+/**
+ * Tryb wyliczeniowy, odpowiedzialny za przechowywanie strony (biala, czarna)
+ */
 public enum Side{
  	white, black;
 	public static Side whatSide(char c)
@@ -11,6 +14,9 @@ public enum Side{
 			return Side.black;
 		}
 	}
+	/**
+	 * Funkcja sprawdzajaca, czy podana tura jest rowna podanej stronie
+	 */
 	public static boolean itsTurn(Side side, Turn turn)
 	{
 		if (side == Side.white && turn == Turn.WHITE)
@@ -19,6 +25,9 @@ public enum Side{
 			return true;
 		return false;
 	}
+	/**
+	 * Funkcja zamieniajace strone na ture
+	 */
 	public static Side TurnToSide(Turn turn)
 	{
 		if (turn == Turn.BLACK) {

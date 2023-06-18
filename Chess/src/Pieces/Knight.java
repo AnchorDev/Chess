@@ -11,6 +11,9 @@ public class Knight extends Piece{
 		Loop(board, -1);
 
 	}
+	/**
+	 * Petla uzywana do liczenia legalnych ruchow
+	 */
 	public void Loop(char[][] board, int dirX) 
 	{
 		Move newMove[] = new Move[4];

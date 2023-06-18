@@ -1,6 +1,13 @@
 package Logic;
 
 import Pieces.Piece;
+<<<<<<< Chess/src/Logic/PieceType.java
+=======
+/**
+ * Tryb wyliczeniowy, odpowiedzialny za przechowywanie typow figur i ich symboli ascii
+ *
+ */
+>>>>>>> Chess/src/Logic/PieceType.java
 public enum PieceType {
 	PAWN('p', 9817),
 	ROOK('r', 9814),
@@ -20,6 +27,9 @@ public enum PieceType {
 	public int getId() {
 		return id;
 	}
+	/**
+	 * Sprawdzenie, czy symbol na szachownicy odnosi sie do figury
+	 */
 	public static PieceType isPiece(char symbol)
 	{
 		for (PieceType piece : PieceType.values()) {
@@ -30,6 +40,9 @@ public enum PieceType {
 		}
 		return null;
 	}
+	/**
+	 * Funkcja zwraca indeks ascii, dla podanej figury
+	 */
 	public static int PieceChar(Piece piece)
 	{
 		if (piece.getPieceSide() == Side.white) {

@@ -1,13 +1,24 @@
 package Logic;
 
 import java.util.List;
+<<<<<<< Chess/src/Logic/Game.java
+=======
+
+
+>>>>>>> Chess/src/Logic/Game.java
 import Pieces.Piece;
 import Pieces.Queen;
 import application.Board;
-
+/**
+ * Najwazniejsza klasa, odpowiedzialna za logike pionkow i szachownicy
+ *
+ */
 public class Game {
 	public Turn turn;
 	public Fen fen;
+	/**
+	 * Konstruktor nowej gry
+	 */
 	public Game()
 	{
 		turn = Turn.WHITE;
@@ -15,6 +26,13 @@ public class Game {
 		fen.resetBoard();
 		fen.loadFenPosition("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
 	}
+	/**
+	 * Funkcja odpowiedzalna za roszade
+	 * @param from Pozycja pierwszej kliknietej wspolrzednej
+	 * @param to Pozycja drugiej kliknietej wspolrzednej
+	 * @param side Strona (biala, czarna)
+	 * @return Boolean ktory opisuje, czy roszada zostala wykonana
+	 */
 	boolean Castle(Move from, Move to, Side side)
 	{
 		if (side != Side.TurnToSide(turn)) {
@@ -96,6 +114,9 @@ public class Game {
 		}
 		return false;
 	}
+	/**
+	 * Funkcja odpowiedzialna za promocje pionkow, ktore dotarly do ostatniego rzedu
+	 */
 	void Promotion()
 	{
 		Piece pieceToRemove = null, pieceToAdd = null;
@@ -135,6 +156,11 @@ public class Game {
 		if(pieceToAdd != null)
 			fen.pieces.add(pieceToAdd);
 	}
+	/**
+	 * Funkcja sprawdzajaca, czy wykonany przez uzytkownika ruch jest mozliwy
+	 * @param from Wspolrzedne skad
+	 * @param to Wspolrzedne dokad
+	 */
 	public void MakeMove(Move from, Move to)
 	{
 		Message("");
@@ -189,6 +215,12 @@ public class Game {
 		}
 		fen.writeChessboard();
 	}
+	/**
+	 * Funkcja sprawdzajaca, czy ruch jest mozliwy pod wzgledem szacha (czy po tym ruchu krol nie jest szachowany)
+	 * @param pieceFrom Pionek wykonujacy ruch
+	 * @param to Wspolrzedne dokad
+	 * @return Boolean zwraca czy ruch jest legalny
+	 */
 	public boolean CheckMove(Piece pieceFrom, Move to)
 	{
 
@@ -209,7 +241,6 @@ public class Game {
 		pieceFrom.setY(to.y);
 		next.insert(pieceFrom);
 		
-		//turn = Turn.switchTurn(this.turn);
 		if (IsChecked(next.pieces, next.chessboard, Side.TurnToSide(turn))) {
 			turn = oldTurn;
 			pieceFrom.setX(pos.x);
@@ -224,6 +255,11 @@ public class Game {
 			return true;
 		}
 	}
+	/**
+	 * Funkcja wykonujaca wczesniej sprawdzony ruch
+	 * @param pieceFrom Pionek wykonujacy ruch
+	 * @param to Wspolrzedne dokad
+	 */
 	public void ExecuteMove(Piece pieceFrom, Move to)
 	{
 		Piece taken = Piece.findPiece(to, fen.pieces);
@@ -246,6 +282,11 @@ public class Game {
 			
 		
 	}
+	/**
+	 * Funkcja tlumaczace komende np. b3b4 na wpolrzedne na szachownicy
+	 * @param command Komenda np. b3b4
+	 * @return Zwraca wspolrzedne na szachownicy
+	 */
 	public static Move TranslateMove(String command)
 	{
 		int x = command.charAt(0)-97;//abc na 123
@@ -253,6 +294,13 @@ public class Game {
 		
 		return new Move(x, y);
 	}
+	/**
+	 * Funkcja sprawdzajaca, czy podana strona nie jest szachowana
+	 * @param pieces Lista wszystkich figur na szachownicy
+	 * @param board Tablica przedstawiajaca szachownice
+	 * @param side Strona (biala, czarna)
+	 * @return Zwraca czy strona jest szachowana
+	 */
 	public boolean IsChecked(List<Piece> pieces, char[][] board, Side side)
 	{
 		boolean checking = false;
@@ -271,6 +319,13 @@ public class Game {
 		}
 		return checking;
 	}
+	/**
+	 * Funkcja sprawdza, czy podana strona ma legalne ruchy (potrzebna aby strwierdzic szach mat)
+	 * @param pieces Lista wszystkich figur na szachownicy
+	 * @param board Tablica przedstawiajaca szachownice
+	 * @param side Strona (biala, czarna)
+	 * @return Zwraca, czy podana strona ma legalne ruchy
+	 */
 	public boolean HasMoves(List<Piece> pieces, char[][] board, Side side)
 	{
 		boolean having = false;
@@ -292,6 +347,10 @@ public class Game {
 		}
 		return having;
 	}
+	/**
+	 * Funkcja odpowiedzialna za generowanie wiadomosci typu (ten ruch jest nielegalny, bialy wykonal roszade)
+	 * @param message String zawierajacy wiadomosc do wypisania
+	 */
 	public static void Message(String message)
 	{
 		message = message.toLowerCase();
@@ -302,7 +361,9 @@ public class Game {
 	public Turn getTurn() {
 		return turn;
 	}
-	
+	/**
+	 * Funkcja zwraca symbol ascii podanej figury
+	 */
 	char pieceChar(Piece piece)
 	{
 		return (char)PieceType.PieceChar(piece);

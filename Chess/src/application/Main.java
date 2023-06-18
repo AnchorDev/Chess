@@ -94,6 +94,7 @@ public class Main extends Application {
 		backgroundGroup.getChildren().add(backView);
 		
 		
+		
 		scene = new Scene(pane, r1.getX(), r1.getY());	
 		
 		game.fen.writeChessboard();

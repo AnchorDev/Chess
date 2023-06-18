@@ -17,6 +17,9 @@ public class King extends Piece{
 		Loop(board, 0, 1);
 
 	}
+	/**
+	 * Petla uzywana do liczenia legalnych ruchow
+	 */
 	public void Loop(char[][] board, int dirX, int dirY) 
 	{
 		Move newMove = new Move(this.x + dirX, this.y + dirY);

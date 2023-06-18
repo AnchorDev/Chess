@@ -13,6 +13,9 @@ public class Bishop extends Piece{
 		Loop(board, -1, 1);
 		Loop(board, -1, -1);
 	}
+	/**
+	 * Petla uzywana do liczenia legalnych ruchow
+	 */
 	public void Loop(char[][] board, int dirX, int dirY) 
 	{
 		for (int i = 1; i < 9; i++)

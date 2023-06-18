@@ -6,6 +6,10 @@ import java.util.List;
 import Pieces.Piece;
 import Pieces.Queen;
 import application.Board;
+/**
+ * Najwazniejsza klasa, odpowiedzialna za logike pionkow i szachownicy
+ *
+ */
 public class Game {
 	public Turn turn;
 	public Fen fen;

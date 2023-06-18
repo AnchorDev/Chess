@@ -17,6 +17,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import java.util.List;
 public class Board{
+	
 	public static int[] coordinates;
 	public int boardSize = 8;
 	public static Group gridGroup;
@@ -40,9 +41,6 @@ public class Board{
     private static int coXB = 1050;
     private static int coY = 30;
 
-    /**
-     * Konstruktor klasy 'Board', tworzacy grupy przechowujace elementy takie jak ruchy, figury oraz szachownica
-     */
 	Board()
 	{
 		turnGroup = new Group();
@@ -52,9 +50,7 @@ public class Board{
 		moveGroup = new Group();
 		comGroup = new Group();
 	}
-	/**
-	 * Funckja do czyszczenia ekranu gry
-	 */
+	
 	public void cleanBoard()
 	{
 		gridGroup.getChildren().clear();
@@ -65,10 +61,7 @@ public class Board{
 	}
 	
 	
-	/**
-	 * Funkcja do rysowania szachownicy, wypisywania kogo jest tura oraz podswietla klikniete pole
-	 * @param size
-	 */
+	//rysuje szachownice, trzeba dodac rysowanie pionkow
 	public void drawBoard(int size)
 	{
 		int i=0,j=0,wcolor = 0;
@@ -76,11 +69,10 @@ public class Board{
 		
 		textGroup.getChildren().add(a);
 			
+		if(choice == Choice.kuba)
+		{
 			for(i = 0; i < boardSize; i++)
 			{
-				/**
-				 * instrukcja warunkowa sprawdzajaca czyj obecniej jest ruch
-				 */
 				if(i == 0)
 				{
 					Text whichSide = new Text((Main.game.getTurn() == Turn.WHITE) ? "White Turn" : "Black Turn");
@@ -179,13 +171,11 @@ public class Board{
 				}
 
 				wcolor++;
-			}    
+			}
+		}	    
 		
-		/**
-		 * Sprawdza czy myszka zostala kliknieta na danym polu
-		 */
 		gridGroup.setOnMouseClicked(new EventHandler<MouseEvent>() {
-			@Override
+		    @Override
 		    public void handle(MouseEvent event) {
 		    	
 		        for (int i = 0; i < gridGroup.getChildren().size(); i++) {
@@ -194,13 +184,15 @@ public class Board{
 		                Rectangle clickedRectangle = colorChange;
 		                
 		                if (lastClicked == clickedRectangle) {
+		                    // Kliknięto ponownie na to samo pole, przywróć poprzedni kolor
 		                    previousColor = (Color) clickedRectangle.getUserData();
 		                    clickedRectangle.setFill(previousColor);
-		                    lastClicked = null;
+		                    lastClicked = null; // Wyczyść ostatnio kliknięte pole
 		                    nextClick = false;
 		                } else {
-
+		                    // Kliknięcie na inne pole
 		                    if (lastClicked != null) {
+		                        // Przywróć poprzedni kolor dla poprzednio klikniętego pola
 		                        previousColor = (Color) lastClicked.getUserData();
 		                        lastClicked.setFill(previousColor);
 		                        nextClick = true;
@@ -223,13 +215,7 @@ public class Board{
 
 
 
-    /**
-     * Funkcja do przypisywania zdjec odpowiednim figura
-     * @param filename sciezka do pliku
-     * @param i wspolrzedne x
-     * @param j wspolrzedne y
-     * @throws FileNotFoundException wyswietla blad w momencie kiedy plik nie zostanie znaleziony
-     */
+    
 	public void setImg(String filename, double i, double j) throws FileNotFoundException {
 		
 		 try {
@@ -247,11 +233,6 @@ public class Board{
 		
 	}
 	
-	/**
-	 * Funkcja do rysowania figur na ekranie
-	 * @param pieces przechowuje odpowiednie informacje przypisane do danej figury
-	 * @throws FileNotFoundException wyswietla blad w momencie kiedy plik nie zostanie znaleziony
-	 */
 	 public void drawPieces(List<Piece> pieces) throws FileNotFoundException {
 	        for (Piece piece: pieces) {
 	            setImg("src\\PiecesPic\\"+piece.getPieceSide()+piece.getPieceType()+".png", piece.getX(), Math.abs(piece.getY()-7));
@@ -259,13 +240,7 @@ public class Board{
 	    }
 	
 	
-	/**
-	 * Funcja do przypisywania koordynatow do poszegolnych kafelkow szachownicy
-	 * @param x Wspolrzedne X
-	 * @param y Wspolrzedne Y
-	 * @param size Wielkosc szachownicy
-	 * @return Zwraca tablice w ktorej przechowywane sa wspolrzedne
-	 */
+	//przypisuje koordynaty poszczegolnych kafelkow szachownicy
 	public static int[] setCoordinates(double x, double y, int size)
 	{
 		
@@ -279,12 +254,6 @@ public class Board{
 		
 	}
 	
-	/**
-	 * Funkcja do wyszukiwania odpowiedniego kafelka szachownicy
-	 * @param x Wspolrzedne X
-	 * @param y Wspolrzedne Y
-	 * @return Zwraca tablice w ktorej przechowywane sa wspolrzedne odpowiedniego kafelka
-	 */
 	public static int[] findSquare(double x, double y)
 	{
 		int res[] = new int[2];
@@ -295,13 +264,6 @@ public class Board{
 		return res;
 	}
 	
-	/**
-	 * Funkcja sprawdzajaca na jaka figure kliknal gracz
-	 * @param pieces Lista figur
-	 * @param x Wspolrzedne X
-	 * @param y Wspolrzedne Y
-	 * @return Zwraca na jaka figure klinal gracz lub zwraca wartosc 'null' w momencie klikniecia w inne miejsce na szachownicy
-	 */
 	public static Piece getClickedPiece(List<Piece> pieces,int x, int y) {
 	    for (Piece piece : pieces) {
 	        if (piece.getX() == x && piece.getY() == Math.abs(y - 7)) {
@@ -311,10 +273,6 @@ public class Board{
 	    return null;
 	}
 	
-	/**
-	 * Funkcja do wypisywania ruchow na ekranie wykonanych przez gracza
-	 * @param move String przechowujacy informacje jaki ruch zostal wykonany
-	 */
 	public static void writeMove(String move)
 	{
 		Text moveP = new Text();
@@ -341,10 +299,6 @@ public class Board{
         moveGroup.getChildren().add(moveP);
 	}
 	
-	/**
-	 * Funkcja do wypisywania komunikatow o tym co sie dzieje w trakcie gry (czy gracz jest szachowany, czy moze wykonac dany ruch)
-	 * @param com String przechowujacy informacje dla gracza
-	 */
 	public static void writeCom(String com)
 	{
 		Text comment = new Text();
@@ -359,5 +313,10 @@ public class Board{
         comment.setWrappingWidth(200);
         comment.setFont(Font.font("Lucida Sans Unicode"));
         comGroup.getChildren().add(comment);
+	}
+	
+	
+	public void setChoice(Choice choice) {
+		this.choice = choice;
 	}
 }

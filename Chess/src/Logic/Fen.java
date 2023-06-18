@@ -1,18 +1,30 @@
 package Logic;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 import Pieces.*;
+/**
+ * 
+ *	Klasa odpowiedzialna za logike szachownicy
+ */
 public class Fen {
 
 		public char[][] chessboard;
 		public List<Piece> pieces;
+		/**
+		 * Konstruktor dla nowej klasy fen
+		 */
 		public Fen()
 		{	
 			chessboard = new char[8][8];
 			pieces = new ArrayList<Piece>();
 		}
+		/**
+		 * 
+		 * Konstruktor kopiujacy klase fen
+		 */
 		public Fen(Fen fen)
 		{
 			chessboard = new char[8][8];
@@ -23,6 +35,10 @@ public class Fen {
 			}
 			pieces = new ArrayList<Piece>();
 		}
+		/**
+		 * Funkcja uzywana do wstawienia figury na szachownice
+		 * @param p Figura do wstawienia
+		 */
 		public void insert(Piece p)
 		{
 			char symbol = p.getPieceType().getSymbol();
@@ -33,10 +49,18 @@ public class Fen {
 			chessboard[p.getX()][p.getY()] = symbol;
 			
 		}
+		/**
+		 * Funkcja uzywana do usuwania figury z szachownicy
+		 * @param p Figura do usunieca
+		 */
 		public void remove(Piece p)
 		{
 			chessboard[p.getX()][p.getY()] = 'x';
 		}
+		/**
+		 * Funkcja ladujaca pozycje na szachownice
+		 * @param fen Ciag znakow fen, okreslajacy pozycje szachowa
+		 */
 		public void loadFenPosition(String fen)
 		{
 			resetBoard();
@@ -93,6 +117,11 @@ public class Fen {
 				}
 			}
 		}
+		/**
+		 * Funkcja zamieniajaca iteracje na pozycje na szachownicy np. 30 iteracja to pole (3,6)
+		 * @param iteration Iteracja ktora zostanie zmieniona na pozycje
+		 * @return Zwraca objekt move - pozycje na szachownicy
+		 */
 		Move iterationToBoard(int iteration)
 		{
 			if(iteration < 64)
@@ -100,7 +129,9 @@ public class Fen {
 			else
 				return new Move(0, 0);
 		}
-		
+		/**
+		 * Funkcja wypisuje szachownice do konsoli
+		 */
 		public void writeChessboard()
 		{
 			for(int i = 7; i >= 0; i--)
@@ -122,7 +153,9 @@ public class Fen {
 			}
 			System.out.println();
 		}
-		
+		/**
+		 * Funkcja czysci szachownice ze wszystkich pionkow
+		 */
 		public void resetBoard()
 		{
 			for (int i = 0; i < chessboard.length; i++) {
@@ -132,6 +165,12 @@ public class Fen {
 				}
 			}
 		}
+		/**
+		 * Funkcja znajduje i zwraca figure o podanych wspolrzednych
+		 * @param x Wspolrzedna X
+		 * @param y Wspolrzedna Y
+		 * @return Zwraca figure - obiekt klasy Piece
+		 */
 		public Piece pieceInPos(int x, int y)
 		{
 			for (Piece piece : pieces) 

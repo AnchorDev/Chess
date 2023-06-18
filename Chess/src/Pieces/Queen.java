@@ -5,6 +5,9 @@ public class Queen extends Piece{
 	public Queen(int x, int y, int id, Side pieceColor) {
 		super(x, y, id, pieceColor, PieceType.QUEEN);
 	}
+	/**
+	 * Liczy legalne ruchy
+	 */
 	public void LegalMoves(char[][] board)
 	{
 		ResetMoves(moves);

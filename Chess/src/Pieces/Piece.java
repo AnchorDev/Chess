@@ -4,6 +4,10 @@ import java.util.List;
 
 import Logic.*;
 public abstract class Piece {
+	
+	/**
+	 * Wypisywanie klasy jako string
+	 */
 	@Override
 	public String toString() {
 		return "Piece [" + (char)(x+97) + (y+1) + ", " + pieceType + ", " + pieceColor + "]";
@@ -19,11 +23,11 @@ public abstract class Piece {
 	public abstract void LegalMoves(char[][] board);
 	/**
 	 * 
-	 * @param x Współrzędne X
-	 * @param y Współrzędne y
-	 * @param id Indeks figury
-	 * @param pieceColor Strona figury
-	 * @param pieceType Typ figury
+	 * @param x Wspolrzedne x na szachownicy (0-7) to (1-8)
+	 * @param y Wspolrzedne y na szachownicy (0-7) to (A-B)
+	 * @param id Indeks figury (liczac od zera)
+	 * @param pieceColor Strona figury (biala, czarna)
+	 * @param pieceType Typ figury (pionek, kon, itd.)
 	 */
 	public Piece(int x, int y, int id, Side pieceColor, PieceType pieceType) {
 		this.x = x;
@@ -62,10 +66,16 @@ public abstract class Piece {
 	public void setPieceType(PieceType pieceType) {
 		this.pieceType = pieceType;
 	}
+	/**
+	 * Resetowanie legalnych ruchow
+	 */
 	public static void ResetMoves(List<Move> moves)
 	{
 		moves.clear();
 	}
+	/**
+	 * Wypisywanie legalnych ruchow do konsoli
+	 */
 	public void ListLegalMoves()
 	{
 		if (moves.size() > 0) 
@@ -80,6 +90,9 @@ public abstract class Piece {
 	public void setId(int id) {
 		this.id = id;
 	}
+	/**
+	 * Funkcja znajdujaca krola na szachownicy
+	 */
 	public static Piece findKing(char c, List<Piece> pieces)
 	{
 		PieceType pieceType; Side pieceSide;
@@ -100,6 +113,9 @@ public abstract class Piece {
 		}
 		return null;
 	}
+	/**
+	 * Funkcja znajdujaca podanego pionka na podstawie wspolrzednych
+	 */
 	public static Piece findPiece(Move move, List<Piece> pieces)
 	{
 			for (Piece piece : pieces) {

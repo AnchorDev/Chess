@@ -4,7 +4,6 @@ import Logic.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-
 import application.Main.Choice;
 import javafx.event.EventHandler;
 import javafx.scene.Group;

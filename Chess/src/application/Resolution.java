@@ -2,7 +2,6 @@ package application;
 public class Resolution {
 
 	int x, y;
-	
 	Resolution()
 	{
 		this.x = 1200;

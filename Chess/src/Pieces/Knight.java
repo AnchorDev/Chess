@@ -1,6 +1,5 @@
 package Pieces;
 import Logic.*;
-
 public class Knight extends Piece{
 	public Knight(int x, int y, int id, Side pieceColor) {
 		super(x, y, id, pieceColor, PieceType.KNIGHT);

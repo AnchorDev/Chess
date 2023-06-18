@@ -1,8 +1,11 @@
 package Logic;
 
 import java.util.List;
+<<<<<<< Chess/src/Logic/Game.java
+=======
 
 
+>>>>>>> Chess/src/Logic/Game.java
 import Pieces.Piece;
 import Pieces.Queen;
 import application.Board;

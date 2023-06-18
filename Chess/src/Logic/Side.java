@@ -34,6 +34,7 @@ public enum Side{
 			return Side.black;
 		}
 		else
+			
 			return Side.white;
 	}
 }

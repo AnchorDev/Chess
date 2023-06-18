@@ -48,7 +48,6 @@ public class Main extends Application {
 	private static boolean kuba = true;
 	private static boolean radek = false;
 	Board board = new Board();
-	MouseClick mouse = new MouseClick();
 	
 	public enum Choice{kuba,radek};
 	//dodanie sceny i grup (taka tablica elementow, dodaje sie jako argument do paneli zeby sie wyswietlaly)

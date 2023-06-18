@@ -14,6 +14,9 @@ public class Rook extends Piece{
 		Loop(board, this.y, 1, false);
 		Loop(board, this.y, -1, false);
 	}
+	/**
+	 * Petla uzywana do liczenia legalnych ruchow
+	 */
 	public void Loop(char[][] board, int pos, int dir, boolean horizontal) 
 	{
 		for (int i = 1; i < 9; i++)

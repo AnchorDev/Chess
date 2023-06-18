@@ -1,4 +1,8 @@
 package Logic;
+/**
+ * Klasa przechowujaca wspolrzedne szachownicy, np. (b3, g6)
+ *
+ */
 public class Move {
 	public int x,y;
 	public char letter;

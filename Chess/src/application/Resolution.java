@@ -1,4 +1,7 @@
 package application;
+/**
+ * Klasa przechowywujaca rozdzielczosc
+ */
 public class Resolution {
 
 	int x, y;

@@ -13,13 +13,9 @@ public enum Turn
 	public char getSymbol() {
 		return symbol;
 	}
-<<<<<<< Chess/src/Logic/Turn.java
-	
-=======
 	/**
 	 * Zamiana tur
 	 */
->>>>>>> Chess/src/Logic/Turn.java
 	public static Turn switchTurn(Turn turn)
 	{
 		if (turn == Turn.WHITE) 

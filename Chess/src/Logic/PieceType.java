@@ -1,13 +1,10 @@
 package Logic;
 
 import Pieces.Piece;
-<<<<<<< Chess/src/Logic/PieceType.java
-=======
 /**
  * Tryb wyliczeniowy, odpowiedzialny za przechowywanie typow figur i ich symboli ascii
  *
  */
->>>>>>> Chess/src/Logic/PieceType.java
 public enum PieceType {
 	PAWN('p', 9817),
 	ROOK('r', 9814),

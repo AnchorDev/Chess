@@ -1,7 +1,6 @@
 package Logic;
 
 import Pieces.Piece;
-
 public enum PieceType {
 	PAWN('p', 9817),
 	ROOK('r', 9814),

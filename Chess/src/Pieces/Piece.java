@@ -88,6 +88,7 @@ public abstract class Piece {
 				}
 			}
 		}
+		
 		return null;
 	}
 	public static Piece findPiece(Move move, List<Piece> pieces)

@@ -1,6 +1,5 @@
 package Pieces;
 import Logic.*;
-
 public class Rook extends Piece{
 	public Rook(int x, int y, int id, Side pieceColor) {
 		super(x, y, id, pieceColor, PieceType.ROOK);

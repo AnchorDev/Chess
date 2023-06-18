@@ -1,7 +1,6 @@
 package Logic;
 
 import java.util.List;
-
 import Pieces.Piece;
 import Pieces.Queen;
 import application.Board;

@@ -1,6 +1,5 @@
 package Pieces;
 import Logic.*;
-
 public class Queen extends Piece{
 	public Queen(int x, int y, int id, Side pieceColor) {
 		super(x, y, id, pieceColor, PieceType.QUEEN);

@@ -13,6 +13,7 @@ public class Move {
 	}
 	void Letter()
 	{
+		
 		this.letter = (char) (x + 97);
 	}
 	@Override public boolean equals(Object o) {

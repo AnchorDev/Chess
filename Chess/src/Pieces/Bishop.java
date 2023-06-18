@@ -1,6 +1,5 @@
 package Pieces;
 import Logic.*;
-
 public class Bishop extends Piece{
 	public Bishop(int x, int y, int id, Side pieceColor) {
 		super(x, y, id, pieceColor, PieceType.BISHOP);

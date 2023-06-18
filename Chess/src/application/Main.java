@@ -48,7 +48,6 @@ public class Main extends Application {
 	private static boolean kuba = true;
 	private static boolean radek = false;
 	Board board = new Board();
-	MouseClick mouse = new MouseClick();
 	
 	public enum Choice{kuba,radek};
 	//dodanie sceny i grup (taka tablica elementow, dodaje sie jako argument do paneli zeby sie wyswietlaly)
@@ -99,7 +98,6 @@ public class Main extends Application {
 		
 		game.fen.writeChessboard();
 		
-		board.setChoice(Choice.kuba);
 		board.drawBoard(100);
 
 
@@ -122,6 +120,9 @@ public class Main extends Application {
       	mouseClick();
 	}
 	
+	/**
+	 * Funcja do sprawdzania czy gracz kliknal na figure lub pole na ktorym jest figura i wykonanie ruchu jesli jest legalny
+	 */
 	public void mouseClick() {
 	    Main.scene.setOnMouseClicked(new EventHandler<MouseEvent>() {
 	        private int firstX;
@@ -137,20 +138,16 @@ public class Main extends Application {
 	            fx = fsquare[0];
 	            fy = fsquare[1];
 
-	            // Sprawdź, czy kliknięto na figurę
 	            if (!clicked) {
 	                Piece clickedPiece = Board.getClickedPiece(game.fen.pieces,fx, fy);
 	                if (clickedPiece != null) {
-	                    // Kliknięto na figurę
 	                    firstX = fx;
 	                    firstY = fy;
-	                    //System.out.println(clickedPiece.getPieceSide());
 	                    clicked = true;
 	                    return;
 	                }
 	            }
 
-	            // Ruch
 	            if (clicked) {
 	                int tx = (int) event.getX();
 	                int ty = (int) event.getY();
@@ -158,7 +155,6 @@ public class Main extends Application {
 
 	                tx = tsquare[0];
 	                ty = tsquare[1];
-	                
 	                
 	                board.cleanBoard();
 	                game.MakeMove(new Move(firstX, Math.abs(firstY - 7)), new Move(tx, Math.abs(fy - 7)));
@@ -176,6 +172,10 @@ public class Main extends Application {
 	    });
 	}
 
+	/**
+	 * Zmiana rozmiaru ekranu gry
+	 * @param r1 wybor rozmiaru planszy
+	 */
 	private void buttonFirst(Resolution r1)
 	{
 		if(r1.getX() == 1200) {
@@ -186,8 +186,7 @@ public class Main extends Application {
 			try {
                 board.drawPieces(game.fen.pieces);
             } catch (FileNotFoundException e) {
-                // Obsługa wyjątku FileNotFoundException
-                e.printStackTrace(); // lub inna obsługa błędu
+                e.printStackTrace();
             }
 		}
 		else
@@ -199,8 +198,7 @@ public class Main extends Application {
 			try {
                 board.drawPieces(game.fen.pieces);
             } catch (FileNotFoundException e) {
-                // Obsługa wyjątku FileNotFoundException
-                e.printStackTrace(); // lub inna obsługa błędu
+                e.printStackTrace();
             }
 		}
 		

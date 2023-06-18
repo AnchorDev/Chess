@@ -3,7 +3,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Logic.*;
-
 public abstract class Piece {
 	@Override
 	public String toString() {
@@ -14,7 +13,18 @@ public abstract class Piece {
 	protected PieceType pieceType;
 	public List<Move> moves;
 	public boolean castleable;
+	/** 
+	* Liczy legalne ruchy
+	*/
 	public abstract void LegalMoves(char[][] board);
+	/**
+	 * 
+	 * @param x Współrzędne X
+	 * @param y Współrzędne y
+	 * @param id Indeks figury
+	 * @param pieceColor Strona figury
+	 * @param pieceType Typ figury
+	 */
 	public Piece(int x, int y, int id, Side pieceColor, PieceType pieceType) {
 		this.x = x;
 		this.y = y;

@@ -60,8 +60,8 @@ public class Main extends Application {
     private static ImageView imageView;
     private static ImageView backView;
     
-
-	
+    
+    
 	@Override
 	public void start(Stage stage) throws FileNotFoundException {
 		
